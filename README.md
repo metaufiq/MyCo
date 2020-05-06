@@ -1,0 +1,2 @@
+# MyCo
+Aplikasi Manajemen Pegawai
