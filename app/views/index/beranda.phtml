@@ -27,16 +27,42 @@
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-pegawai" role="tabpanel" aria-labelledby="pills-pegawai-tab">...</div>
     <div class="tab-pane fade" id="pills-tugas" role="tabpanel" aria-labelledby="pills-tugas-tab" style="padding-top:50px">
-            <div class="row justify-content-center align-items-center">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tugas">Tambah Tugas</button>
-            </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Tugas</th>
+                    <th scope="col">Pegawai</th>
+                    <th scope="col">Tenggat Waktu</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Selesakan FP APL</td>
+                    <td>Taufiq, Mukti, Bayu</td>
+                    <td>27 May 2020</td>
+                    <td>Ditugaskan</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tugas-ubah">Ubah Tugas</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-tugas-hapus">Hapus Tugas</button>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <div class="row justify-content-center align-items-center">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tugas-tambah">Tambah Tugas</button>
+        </div>
     </div>
 </div>
 
 
 
 <!-- Modal -->
-<div class="modal fade" id="modal-tugas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-tugas-tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,8 +81,81 @@
                         <label for="exampleInputPassword1">Detail Tugas</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Pilih Pegawai</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Tambah</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-tugas-ubah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ubah Tugas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="beranda">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Judul Tugas</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Judul">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Detail Tugas</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Pilih Pegawai</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Status Pegerjaan</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>Ditugaskan</option>
+                            <option>Selesai</option>
+                            <option>Telat</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ubah</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-tugas-hapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Tugas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah anda yakin ingin menghapus tugas Menyelesaikan Progres FP ?</p>
+                <button type="submit" class="btn btn-primary">Iya, Saya yakin</button>
+                <button type="submit" class="btn btn-danger">Batalkan</button>
             </div>
         </div>
     </div>
