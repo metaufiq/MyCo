@@ -47,7 +47,13 @@
                     <tr>
                         <th scope="row"><?php echo $i?></th>
                         <td><?php echo $tugas->getNama()?></td>
-                        <td><?php echo $tugas->getPegawai()->getNama()?></td>
+                        <td><?php foreach ($tugas->getPegawai() as $pegawai) {
+                            
+                            echo $pegawai->getNama();
+                            if ($pegawai != $tugas->getPegawai()[count($tugas->getPegawai())-1]) {
+                                echo ", ";    
+                            }
+                        }?></td>
                         <td><?php echo $tugas->getTenggatWaktu()?></td>
                         <td><?php echo $tugas->getStatus()?></td>
                         <td>

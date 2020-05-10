@@ -20,7 +20,6 @@ class IndexController extends ControllerBase
     public function berandaAction()
     {
         $response = $this->viewAllTugasService->handle();
-        
         $this->view->setVars(array(
             'allTugas' => $response->get()
         ));
