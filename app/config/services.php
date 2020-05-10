@@ -1,63 +1,15 @@
 <?php
 declare(strict_types=1);
 
-use Phalcon\Escaper;
-use Phalcon\Flash\Direct as Flash;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
-use Phalcon\Mvc\View;
-use Phalcon\Mvc\View\Engine\Php as PhpEngine;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
-use Phalcon\Session\Adapter\Stream as SessionAdapter;
-use Phalcon\Session\Manager as SessionManager;
-use Phalcon\Url as UrlResolver;
+
 
 /**
  * Shared configuration service
  */
 $di->setShared('config', function () {
     return include APP_PATH . "/config/config.php";
-});
-
-/**
- * The URL component is used to generate all kind of urls in the application
- */
-$di->setShared('url', function () {
-    $config = $this->getConfig();
-
-    $url = new UrlResolver();
-    $url->setBaseUri($config->application->baseUri);
-
-    return $url;
-});
-
-/**
- * Setting up the view component
- */
-$di->setShared('view', function () {
-    $config = $this->getConfig();
-
-    $view = new View();
-    $view->setDI($this);
-    $view->setViewsDir($config->application->viewsDir);
-
-    $view->registerEngines([
-        '.volt' => function ($view) {
-            $config = $this->getConfig();
-
-            $volt = new VoltEngine($view, $this);
-
-            $volt->setOptions([
-                'path' => $config->application->cacheDir,
-                'separator' => '_'
-            ]);
-
-            return $volt;
-        },
-        '.phtml' => PhpEngine::class
-
-    ]);
-
-    return $view;
 });
 
 /**
@@ -82,7 +34,6 @@ $di->setShared('db', function () {
     return new $class($params);
 });
 
-
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */
@@ -91,32 +42,42 @@ $di->setShared('modelsMetadata', function () {
 });
 
 /**
- * Register the session flash service with the Twitter Bootstrap classes
+ * Configure the Volt service for rendering .volt templates
  */
-$di->set('flash', function () {
-    $escaper = new Escaper();
-    $flash = new Flash($escaper);
-    $flash->setImplicitFlush(false);
-    $flash->setCssClasses([
-        'error'   => 'alert alert-danger',
-        'success' => 'alert alert-success',
-        'notice'  => 'alert alert-info',
-        'warning' => 'alert alert-warning'
+$di->setShared('voltShared', function ($view) {
+    $config = $this->getConfig();
+
+    $volt = new VoltEngine($view, $this);
+    $volt->setOptions([
+        'path' => function($templatePath) use ($config) {
+            $basePath = $config->application->appDir;
+            if ($basePath && substr($basePath, 0, 2) == '..') {
+                $basePath = dirname(__DIR__);
+            }
+
+            $basePath = realpath($basePath);
+            $templatePath = trim(substr($templatePath, strlen($basePath)), '\\/');
+
+            $filename = basename(str_replace(['\\', '/'], '_', $templatePath), '.volt') . '.php';
+
+            $cacheDir = $config->application->cacheDir;
+            if ($cacheDir && substr($cacheDir, 0, 2) == '..') {
+                $cacheDir = __DIR__ . DIRECTORY_SEPARATOR . $cacheDir;
+            }
+
+            $cacheDir = realpath($cacheDir);
+
+            if (!$cacheDir) {
+                $cacheDir = sys_get_temp_dir();
+            }
+
+            if (!is_dir($cacheDir . DIRECTORY_SEPARATOR . 'volt')) {
+                @mkdir($cacheDir . DIRECTORY_SEPARATOR . 'volt' , 0755, true);
+            }
+
+            return $cacheDir . DIRECTORY_SEPARATOR . 'volt' . DIRECTORY_SEPARATOR . $filename;
+        }
     ]);
 
-    return $flash;
-});
-
-/**
- * Start the session the first time some component request the session service
- */
-$di->setShared('session', function () {
-    $session = new SessionManager();
-    $files = new SessionAdapter([
-        'savePath' => sys_get_temp_dir(),
-    ]);
-    $session->setAdapter($files);
-    $session->start();
-
-    return $session;
+    return $volt;
 });
