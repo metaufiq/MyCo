@@ -41,14 +41,15 @@
             <tbody>
 
                 <?php
+                $i = 1;
                 foreach ($allTugas as $tugas) {
                 ?>
                     <tr>
-                        <th scope="row"><?php echo $tugas['id']?></th>
-                        <td><?php echo $tugas['nama']?></td>
-                        <td><?php echo $tugas['pegawai']?></td>
-                        <td><?php echo $tugas['tenggat_waktu']?></td>
-                        <td><?php echo $tugas['status']?></td>
+                        <th scope="row"><?php echo $i?></th>
+                        <td><?php echo $tugas->getNama()?></td>
+                        <td><?php echo $tugas->getPegawai()->getNama()?></td>
+                        <td><?php echo $tugas->getTenggatWaktu()?></td>
+                        <td><?php echo $tugas->getStatus()?></td>
                         <td>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tugas-ubah">Ubah Tugas</button>
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-tugas-hapus">Hapus Tugas</button>
@@ -56,6 +57,7 @@
 
                     </tr>
                 <?php
+                $i++;
                 }
                 ?>
 

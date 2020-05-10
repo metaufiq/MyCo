@@ -22,7 +22,7 @@ class IndexController extends ControllerBase
         $response = $this->viewAllTugasService->handle();
         
         $this->view->setVars(array(
-            'allTugas' => $response
+            'allTugas' => $response->get()
         ));
     }
 

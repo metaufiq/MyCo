@@ -3,28 +3,33 @@ namespace Index\Modules\MyCo\Domain\Model;
 
 class Tugas
 {
+    private $id;
     private $nama;
-    private $detail;
-    private $timestamp;
+    private $pegawai;
+    private $tenggatWaktu;
     private $status;
 
-    public function __construct($nama,$detail,$timestamp,$status)
+    public function __construct($id,$nama,$pegawai,$tenggatWaktu,$status)
     {
+        $this->id = $id;
         $this->nama = $nama;
-        $this->detail = $detail;
-        $this->timestamp = $timestamp;
+        $this->pegawai = $pegawai;
+        $this->tenggatWaktu = $tenggatWaktu;
         $this->status = $status;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function getNama()
     {
         return $this->nama;
     }
 
-    public function getDetail()
-    {
-        return $this->detail;
+    public function getPegawai(){
+        return $this->pegawai;
     }
 
     public function getStatus()
@@ -32,14 +37,14 @@ class Tugas
         return $this->status;
     }
 
-    public function getTimestamp()
+    public function getTenggatWaktu()
     {
-        return $this->timestamp;
+        return $this->tenggatWaktu;
     }
 
 
-    public static function createTugas($nama,$detail,$timestamp,$status) : Tugas
+    public static function createTugas($nama,$detail,$tenggatWaktu,$status) : Tugas
     {
-        return new Tugas($nama, $detail, $timestamp, $status);
+        return new Tugas($nama, $detail, $tenggatWaktu, $status);
     }
 }
