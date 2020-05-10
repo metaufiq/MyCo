@@ -14,13 +14,21 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-        $response = $this->viewAllTugasService->handle();
-        return $response;
+
     }
 
     public function berandaAction()
     {
+        $response = $this->viewAllTugasService->handle();
+        
+        $this->view->setVars(array(
+            'allTugas' => $response
+        ));
+    }
 
+    public function tambahTugasAction(){
+        
+        die(json_encode($this->request->get()));
     }
 
 

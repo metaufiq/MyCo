@@ -75,7 +75,7 @@ $di->setShared('dispatcher', function () {
 
 
 $di->set('tugasRepository', function () use ($di) {
-    return new SqlTugasRepository();
+    return new SqlTugasRepository($di->get('db'));
 });
 
 $di->set('viewAllTugasService', function () use ($di) {

@@ -39,18 +39,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Selesakan FP APL</td>
-                    <td>Taufiq, Mukti, Bayu</td>
-                    <td>27 May 2020</td>
-                    <td>Ditugaskan</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tugas-ubah">Ubah Tugas</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-tugas-hapus">Hapus Tugas</button>
-                    </td>
 
-                </tr>
+                <?php
+                foreach ($allTugas as $tugas) {
+                ?>
+                    <tr>
+                        <th scope="row"><?php echo $tugas['id']?></th>
+                        <td><?php echo $tugas['nama']?></td>
+                        <td><?php echo $tugas['pegawai']?></td>
+                        <td><?php echo $tugas['tenggat_waktu']?></td>
+                        <td><?php echo $tugas['status']?></td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tugas-ubah">Ubah Tugas</button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-tugas-hapus">Hapus Tugas</button>
+                        </td>
+
+                    </tr>
+                <?php
+                }
+                ?>
+
             </tbody>
         </table>
         <div class="row justify-content-center align-items-center">
@@ -72,16 +80,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="beranda">
+                <form action="tambahTugas" method="POST">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Judul Tugas</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Judul">
+                        <label for="exampleInputEmail1">Nama Tugas</label>
+                        <input type="text" class="form-control" name="nama-tugas" aria-describedby="emailHelp" placeholder="Masukan Judul">
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Detail Tugas</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="exampleFormControlSelect1">Pilih Pegawai</label>
                         <select class="form-control" id="exampleFormControlSelect1">
                             <option>1</option>
@@ -90,7 +94,7 @@
                             <option>4</option>
                             <option>5</option>
                         </select>
-                    </div>
+                    </div> -->
                     <button type="submit" class="btn btn-primary">Tambah</button>
                 </form>
             </div>
