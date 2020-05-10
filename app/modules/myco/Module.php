@@ -26,7 +26,7 @@ class Module implements ModuleDefinitionInterface
             'Index\Modules\MyCo\Domain\Transport' => __DIR__ . '/domain/transport',
             'Index\Modules\MyCo\Domain\Exception' => __DIR__ . '/domain/exception',
             'Index\Modules\MyCo\Infrastructure\Persistence' => __DIR__ . '/infrastructure/persistence',
-            'Index\Modules\MyCo\Infrastructure\Transport' => __DIR__ . '/infrastructure/transport',
+            // 'Index\Modules\MyCo\Infrastructure\Transport' => __DIR__ . '/infrastructure/transport',
             'Index\Modules\MyCo\Application' => __DIR__ . '/application',
             'Index\Modules\MyCo\Presentation\Controllers\Web' => __DIR__ . '/presentation/controllers/web',
             'Index\Modules\MyCo\Presentation\Controllers\Api' => __DIR__ . '/presentation/controllers/api',

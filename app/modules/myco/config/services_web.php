@@ -1,6 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
+use Index\Modules\MyCo\Application\ViewAllTugas\ViewAllTugasService;
+use Index\Modules\MyCo\Infrastructure\Persistence\SqlTugasRepository;
 use Phalcon\Escaper;
 use Phalcon\Flash\Direct as Flash;
 use Phalcon\Mvc\Dispatcher;
@@ -63,9 +66,18 @@ $di->set('flash', function () {
 /**
  * Set the default namespace for dispatcher
  */
-$di->setShared('dispatcher', function() {
+$di->setShared('dispatcher', function () {
     $dispatcher = new Dispatcher();
     $dispatcher->setDefaultNamespace('Index\Modules\MyCo\Presentation\Controllers\Web');
 
     return $dispatcher;
+});
+
+
+$di->set('tugasRepository', function () use ($di) {
+    return new SqlTugasRepository();
+});
+
+$di->set('viewAllTugasService', function () use ($di) {
+    return new ViewAllTugasService($di->get('tugasRepository'));
 });

@@ -1,4 +1,5 @@
 <?php
+namespace Index\Modules\MyCo\Domain\Model;
 
 class Tugas
 {
