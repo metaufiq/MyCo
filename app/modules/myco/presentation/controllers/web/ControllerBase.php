@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Index\Modules\MyCo\Controllers;
+namespace Index\Modules\MyCo\Presentation\Controllers\Web;
 
 use Phalcon\Mvc\Controller;
 

@@ -21,8 +21,16 @@ class Module implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Index\Modules\MyCo\Controllers' => __DIR__ . '/presentation/controllers/',
-            'Index\Modules\MyCo\Models' => __DIR__ . '/models/',
+            'Index\Modules\MyCo\Domain\Model' => __DIR__ . '/domain/model',
+            'Index\Modules\MyCo\Domain\Repository' => __DIR__ . '/domain/repository',
+            'Index\Modules\MyCo\Domain\Transport' => __DIR__ . '/domain/transport',
+            'Index\Modules\MyCo\Domain\Exception' => __DIR__ . '/domain/exception',
+            'Index\Modules\MyCo\Infrastructure\Persistence' => __DIR__ . '/infrastructure/persistence',
+            'Index\Modules\MyCo\Infrastructure\Transport' => __DIR__ . '/infrastructure/transport',
+            'Index\Modules\MyCo\Application' => __DIR__ . '/application',
+            'Index\Modules\MyCo\Presentation\Controllers\Web' => __DIR__ . '/presentation/controllers/web',
+            'Index\Modules\MyCo\Presentation\Controllers\Api' => __DIR__ . '/presentation/controllers/api',
+            'Index\Modules\MyCo\Presentation\Controllers\Validators' => __DIR__ . '/presentation/controllers/validators',
         ]);
 
         $loader->register();

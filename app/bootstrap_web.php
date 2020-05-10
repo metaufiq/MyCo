@@ -24,7 +24,7 @@ try {
     /**
      * Include web environment specific services
      */
-    require APP_PATH . '/config/services_web.php';
+    require APP_PATH . '/modules/myco/config/services_web.php';
 
     /**
      * Get config service for use in inline setup below
