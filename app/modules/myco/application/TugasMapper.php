@@ -28,7 +28,10 @@ class TugasMapper
                     )
                 ),
                 'tenggatWaktu' => $tugas['tenggat_waktu'],
-                'status' => $tugas['status']
+                'status' => array(
+                    'id' => $tugas['id_status'],
+                    'nama' => $tugas['nama_status']
+                )
             );
             if (!empty($temp)) {
                 if (end($temp)['tugas']['id'] == $newTugas['tugas']['id']) {

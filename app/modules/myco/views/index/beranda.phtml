@@ -27,7 +27,7 @@
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-pegawai" role="tabpanel" aria-labelledby="pills-pegawai-tab">...</div>
     <div class="tab-pane fade" id="pills-tugas" role="tabpanel" aria-labelledby="pills-tugas-tab" style="padding-top:50px">
-        <table class="table">
+        <table class="table" id="tugas-tabel">
             <thead>
                 <tr>
                     <th scope="col">No</th>
@@ -55,17 +55,10 @@
                                 }
                             } ?></td>
                         <td><?php echo $tugas->getTenggatWaktu() ?></td>
-                        <td><?php echo $tugas->getStatus() ?></td>
+                        <td><?php echo $tugas->getStatus()['nama'] ?></td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tugas-ubah" data-id="<?php echo $tugas->getId(); ?>">Ubah Tugas</button>
+                            <button type="button" class="btn btn-primary" id="open-modal-tugas-ubah" data-toggle="modal" data-target="#modal-tugas-ubah" data-id="<?php echo $tugas->getId(); ?>" data-tugas="<?php echo $tugas->getNama(); ?>" data-tenggatwaktu="<?php echo $tugas->getTenggatWaktu(); ?>" data-status="<?php echo $tugas->getStatus()['id']; ?>">Ubah Tugas</button>
                             <button type="button" class="btn btn-danger" id="open-modal-tugas-hapus" data-toggle="modal" data-target="#modal-tugas-hapus" data-id="<?php echo $tugas->getId(); ?>">Hapus Tugas</button>
-                            <script>
-                                $(document).on("click", "#open-modal-tugas-hapus", function() {
-                                    var id = $(this).data('id');
-
-                                    $(".modal-body  #tugas-id").val(id);
-                                });
-                            </script>
                         </td>
 
                     </tr>
@@ -108,17 +101,7 @@
                     </div> -->
                     <div class="form-group" style="margin-bottom:20px">
                         <label for="exampleInputEmail1">Tenggat Waktu</label>
-                        <input id="input" width="312" name="tugas_tenggat_waktu" placeholder="masukan tanggal" />
-                        <script>
-                            $('#input').datetimepicker({
-                                footer: true,
-                                modal: true,
-                                change: function(e) {
-
-                                },
-                                format: 'yyyy-mm-dd HH:MM'
-                            });
-                        </script>
+                        <input class="input-tenggat-waktu" width="312" name="tugas_tenggat_waktu" placeholder="masukan tanggal" />
                     </div>
 
 
@@ -142,13 +125,9 @@
                 <form action="beranda">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Judul Tugas</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Judul">
+                        <input type="text" class="form-control" id="tugas-nama" name="tugas_nama" aria-describedby="emailHelp" placeholder="Masukan Judul">
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Detail Tugas</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="exampleFormControlSelect1">Pilih Pegawai</label>
                         <select class="form-control" id="exampleFormControlSelect1">
                             <option>1</option>
@@ -157,13 +136,17 @@
                             <option>4</option>
                             <option>5</option>
                         </select>
+                    </div> -->
+                    <div class="form-group" style="margin-bottom:20px">
+                        <label for="exampleInputEmail1">Tenggat Waktu</label>
+                        <input class="input-tenggat-waktu" id="tugas-tenggat-waktu" width="312" name="tugas_tenggat_waktu" placeholder="masukan tanggal" />
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Status Pegerjaan</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>Ditugaskan</option>
-                            <option>Selesai</option>
-                            <option>Telat</option>
+                        <select class="form-control" id="tugas-status">
+                            <option value="1">Ditugaskan</option>
+                            <option value="2">Selesai</option>
+                            <option value="0">Telat</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Ubah</button>
@@ -195,3 +178,31 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('.input-tenggat-waktu').datetimepicker({
+        footer: true,
+        modal: true,
+        format: 'yyyy-mm-dd HH:MM'
+    });
+
+    $(document).on("click", "#open-modal-tugas-hapus", function() {
+        var id = $(this).data('id');
+
+        $(".modal-body  #tugas-id").val(id);
+    });
+
+    $(document).on("click", "#open-modal-tugas-ubah", function() {
+        var id = $(this).data('id');
+        var tugas = $(this).data('tugas');
+        var tenggatWaktu = $(this).data('tenggatwaktu');
+        var status = $(this).data('status');
+
+        $(".modal-body  #tugas-id").val(id);
+        $(".modal-body  #tugas-nama").val(tugas);
+        $(".modal-body  #tugas-tenggat-waktu").val(tenggatWaktu);
+        $(".modal-body  #tugas-status").val(status);
+
+
+    });
+</script>
