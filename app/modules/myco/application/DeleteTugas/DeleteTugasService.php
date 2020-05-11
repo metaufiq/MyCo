@@ -7,7 +7,7 @@ use Index\Modules\MyCo\Domain\Repository\TugasRepository;
 
 
 class DeleteTugasService{
-    public $tugasRepository;
+    protected $tugasRepository;
 
 
     public function __construct(

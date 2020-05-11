@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Bulan Mei 2020 pada 10.20
+-- Waktu pembuatan: 11 Bulan Mei 2020 pada 13.42
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.11
 
@@ -21,6 +21,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `myco`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `manajer`
+--
+
+CREATE TABLE `manajer` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `manajer`
+--
+
+INSERT INTO `manajer` (`id`, `nama`, `email`, `password`) VALUES
+(1, 'Taufiq', 'taufiq1689@gmail.com', '123');
 
 -- --------------------------------------------------------
 
@@ -59,8 +79,9 @@ CREATE TABLE `penugasan` (
 --
 
 INSERT INTO `penugasan` (`id`, `tugas`, `pegawai`) VALUES
-(1, 1, 1),
-(2, 1, 2);
+(44, 1, 1),
+(45, 1, 2),
+(46, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -78,6 +99,7 @@ CREATE TABLE `status_tugas` (
 --
 
 INSERT INTO `status_tugas` (`id`, `status`) VALUES
+(0, 'Telat'),
 (1, 'Sedang Dikerjakan'),
 (2, 'Selesai');
 
@@ -89,8 +111,8 @@ INSERT INTO `status_tugas` (`id`, `status`) VALUES
 
 CREATE TABLE `tugas` (
   `id` int(255) NOT NULL,
-  `nama` text NOT NULL,
-  `tenggat_waktu` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `tugas` text NOT NULL,
+  `tenggat_waktu` timestamp NOT NULL DEFAULT current_timestamp(),
   `status` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -98,12 +120,18 @@ CREATE TABLE `tugas` (
 -- Dumping data untuk tabel `tugas`
 --
 
-INSERT INTO `tugas` (`id`, `nama`, `tenggat_waktu`, `status`) VALUES
-(2, 'Membuat Arsitektur DDD', '2020-05-10 08:19:00', 1);
+INSERT INTO `tugas` (`id`, `tugas`, `tenggat_waktu`, `status`) VALUES
+(1, 'Membuat Arsitektur DDD 12', '2020-05-18 10:55:00', 2);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `manajer`
+--
+ALTER TABLE `manajer`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `pegawai`
@@ -134,6 +162,12 @@ ALTER TABLE `tugas`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `manajer`
+--
+ALTER TABLE `manajer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
@@ -143,19 +177,19 @@ ALTER TABLE `pegawai`
 -- AUTO_INCREMENT untuk tabel `penugasan`
 --
 ALTER TABLE `penugasan`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT untuk tabel `status_tugas`
 --
 ALTER TABLE `status_tugas`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

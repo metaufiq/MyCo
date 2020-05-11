@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
+use Index\Modules\MyCo\Application\CreateManajer\CreateManajerService;
 use Index\Modules\MyCo\Application\CreateTugas\CreateTugasService;
 use Index\Modules\MyCo\Application\DeleteTugas\DeleteTugasService;
 use Index\Modules\MyCo\Application\EditTugas\EditTugasService;
 use Index\Modules\MyCo\Application\ViewAllTugas\ViewAllTugasService;
+use Index\Modules\MyCo\Infrastructure\Persistence\SqlManajerRepository;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlTugasRepository;
 use Phalcon\Escaper;
 use Phalcon\Flash\Direct as Flash;
@@ -79,6 +81,14 @@ $di->setShared('dispatcher', function () {
 
 $di->set('tugasRepository', function () use ($di) {
     return new SqlTugasRepository($di->get('db'));
+});
+
+$di->set('manajerRepository', function () use ($di) {
+    return new SqlManajerRepository($di->get('db'));
+});
+
+$di->set('createManajerService', function () use ($di) {
+    return new CreateManajerService($di->get('manajerRepository'));
 });
 
 $di->set('viewAllTugasService', function () use ($di) {

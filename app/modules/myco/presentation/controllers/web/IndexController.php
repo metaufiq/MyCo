@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Index\Modules\MyCo\Presentation\Controllers\Web;
 
+use Index\Modules\MyCo\Application\CreateManajer\CreateManajerRequest;
 use Index\Modules\MyCo\Application\CreateTugas\CreateTugasRequest;
 use Index\Modules\MyCo\Application\DeleteTugas\DeleteTugasRequest;
 use Index\Modules\MyCo\Application\EditTugas\EditTugasRequest;
 
 class IndexController extends ControllerBase
 {
+
+    protected $createManajerService;
+
+
     protected $viewAllTugasService;
     protected $createTugasService;
     protected $editTugasService;
@@ -22,15 +27,27 @@ class IndexController extends ControllerBase
         $this->createTugasService = $this->di->get('createTugasService');
         $this->editTugasService = $this->di->get('editTugasService');
         $this->deleteTugasService = $this->di->get('deleteTugasService');
+        $this->createManajerService = $this->di->get('createManajerService');
     }
 
     public function indexAction()
     {
     }
 
-    public function daftar()
+    public function daftarAction()
     {
-        # code...
+        $request = $this->request->get();
+
+
+        $nama = $request['manajer_nama'];
+        $email = $request['manajer_email'];
+        $password = $request['manajer_password'];
+
+
+        $request = new CreateManajerRequest($nama, $email, $password);
+        $response = $this->createManajerService->handle($request);
+
+        $this->response->redirect('index/beranda');
     }
 
     public function berandaAction()
