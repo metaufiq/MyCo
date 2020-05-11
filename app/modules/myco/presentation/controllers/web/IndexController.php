@@ -28,6 +28,11 @@ class IndexController extends ControllerBase
     {
     }
 
+    public function daftar()
+    {
+        # code...
+    }
+
     public function berandaAction()
     {
         $response = $this->viewAllTugasService->handle();
