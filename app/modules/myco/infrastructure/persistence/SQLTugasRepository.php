@@ -60,13 +60,34 @@ class SqlTugasRepository implements TugasRepository
     public function edit(Tugas $tugas)
     {
         $statement = sprintf("UPDATE Tugas SET  tugas=:tugas, tenggat_waktu=:tenggatWaktu, `status`= :s WHERE id= :id");
-        $params = ['tugas'=>$tugas->getNama(),'tenggatWaktu'=>$tugas->getTenggatWaktu(),'s' => $tugas->getStatus(), 'id' => $tugas->getId()];
+        $params = ['tugas' => $tugas->getNama(), 'tenggatWaktu' => $tugas->getTenggatWaktu(), 's' => $tugas->getStatus(), 'id' => $tugas->getId()];
         $this->db->execute($statement, $params);
-        foreach ($tugas->getPegawai() as $pegawai) {
-            $statement = sprintf("UPDATE Penugasan SET  pegawai=:pegawai WHERE tugas=:tugas");
-            $params = ['tugas' => $tugas->getId, 'pegawai' => $pegawai];
+        // return true;
+        $statement = sprintf("SELECT pegawai FROM Penugasan WHERE tugas=:tugas");
+        $params = ['tugas' => $tugas->getId()];
+        $pegawaiFromDB = $this->db->query($statement, $params)
+            ->fetchAll(PDO::FETCH_ASSOC);
+
+        $temp = array();
+        foreach ($pegawaiFromDB as $pegawai) {
+            array_push($temp, $pegawai['pegawai']);
+        }
+
+        $intersectDelete = array_diff($temp, $tugas->getPegawai());
+        foreach ($intersectDelete as $pegawai) {
+            $statement = sprintf("DELETE FROM Penugasan WHERE tugas=:tugas AND  pegawai=:pegawai");
+            $params = ['tugas' => $tugas->getId(), 'pegawai' => $pegawai];
             $this->db->execute($statement, $params);
         }
+
+        $intersectInsert = array_diff($tugas->getPegawai(), $temp);
+        foreach ($intersectInsert as $pegawai) {
+            $statement = sprintf("INSERT INTO Penugasan(tugas, pegawai) VALUES(:tugas,  :pegawai)");
+            $params = ['tugas' => $tugas->getId(), 'pegawai' => $pegawai];
+            $this->db->execute($statement, $params);
+        }
+
+
         return true;
     }
 }

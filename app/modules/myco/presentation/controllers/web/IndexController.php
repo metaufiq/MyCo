@@ -59,10 +59,11 @@ class IndexController extends ControllerBase
         $tugas = $request["tugas_nama"];
         $pegawai = isset($request->tugas_pegawai) ? $request["tugas_pegawai"] : [1, 2, 3];
         $tenggatWaktu = $request["tugas_tenggat_waktu"] . ":00";
-        $status = $request["status"];
+        $status = $request["tugas_status"];
 
         $request = new EditTugasRequest($id, $tugas, $pegawai, $tenggatWaktu, $status);
         $response = $this->editTugasService->handle($request);
+        
 
         return $this->_redirectBack();
     }
