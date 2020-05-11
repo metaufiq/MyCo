@@ -22,7 +22,7 @@ class CreateTugasService{
             $tugas = new Tugas(null, $request->getTugas(), $request->getPegawai(), $request->getTenggatWaktu(), 1);
             $response = $this->tugasRepository->save($tugas);
             
-            return new GenericResponse($response, "Idea created successfully.");
+            return new GenericResponse($response, "Tugas created successfully.");
         } catch (\Exception $exception) {
             return new GenericResponse($exception, $exception->getMessage(), 500, true);
         }

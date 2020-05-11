@@ -22,7 +22,7 @@ class EditTugasService{
             $tugas = new Tugas($request->getId(), $request->getTugas(), $request->getPegawai(), $request->getTenggatWaktu(), $request->getStatus());
             $response = $this->tugasRepository->edit($tugas);
             
-            return new GenericResponse($response, "Idea created successfully.");
+            return new GenericResponse($response, "Tugas edited successfully.");
         } catch (\Exception $exception) {
             return new GenericResponse($exception, $exception->getMessage(), 500, true);
         }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Index\Modules\MyCo\Presentation\Controllers\Web;
 
 use Index\Modules\MyCo\Application\CreateTugas\CreateTugasRequest;
-use Index\Modules\MyCo\Application\CreateTugas\CreateTugasService;
 use Index\Modules\MyCo\Application\DeleteTugas\DeleteTugasRequest;
 use Index\Modules\MyCo\Application\EditTugas\EditTugasRequest;
 
