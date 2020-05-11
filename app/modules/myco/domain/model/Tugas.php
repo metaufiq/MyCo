@@ -41,10 +41,4 @@ class Tugas
     {
         return $this->tenggatWaktu;
     }
-
-
-    public static function createTugas($nama,$detail,$tenggatWaktu,$status) : Tugas
-    {
-        return new Tugas($nama, $detail, $tenggatWaktu, $status);
-    }
 }

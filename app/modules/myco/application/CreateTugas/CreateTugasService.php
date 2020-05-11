@@ -1,12 +1,13 @@
 <?php
 namespace Index\Modules\MyCo\Application\CreateTugas;
 
+use Index\Modules\MyCo\Application\GenericResponse;
 use Index\Modules\MyCo\Domain\Model\Tugas;
 use Index\Modules\MyCo\Domain\Repository\TugasRepository;
 
 
 class CreateTugasService{
-    private $tugasRepository;
+    public $tugasRepository;
 
 
     public function __construct(
@@ -15,17 +16,15 @@ class CreateTugasService{
         $this->tugasRepository = $tugasRepository;
     }
 
-    public function handle(Create $request) : CreateNewIdeaResponse
+    public function handle(CreateTugasRequest $request) : GenericResponse
     {
         try {
-            $tugas = Tugas::createTugas("haha","detail","timestamp","status");
+            $tugas = new Tugas(null, $request->getTugas(), $request->getPegawai(), $request->getTenggatWaktu(), 1);
             $response = $this->tugasRepository->save($tugas);
-
-            return new CreateNewIdeaResponse($response, "Idea created successfully.");
-        } catch (InvalidEmailDomainException $domainException) {
-            return new CreateNewIdeaResponse($domainException, $domainException->getMessage(), 400, true);
+            
+            return new GenericResponse($response, "Idea created successfully.");
         } catch (\Exception $exception) {
-            return new CreateNewIdeaResponse($exception, $exception->getMessage(), 500, true);
+            return new GenericResponse($exception, $exception->getMessage(), 500, true);
         }
     }
 }
