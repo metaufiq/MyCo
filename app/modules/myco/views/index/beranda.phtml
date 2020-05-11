@@ -57,8 +57,15 @@
                         <td><?php echo $tugas->getTenggatWaktu() ?></td>
                         <td><?php echo $tugas->getStatus() ?></td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tugas-ubah">Ubah Tugas</button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-tugas-hapus">Hapus Tugas</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tugas-ubah" data-id="<?php echo $tugas->getId(); ?>">Ubah Tugas</button>
+                            <button type="button" class="btn btn-danger" id="open-modal-tugas-hapus" data-toggle="modal" data-target="#modal-tugas-hapus" data-id="<?php echo $tugas->getId(); ?>">Hapus Tugas</button>
+                            <script>
+                                $(document).on("click", "#open-modal-tugas-hapus", function() {
+                                    var id = $(this).data('id');
+
+                                    $(".modal-body  #tugas-id").val(id);
+                                });
+                            </script>
                         </td>
 
                     </tr>
@@ -107,7 +114,7 @@
                                 footer: true,
                                 modal: true,
                                 change: function(e) {
-                                    
+
                                 },
                                 format: 'yyyy-mm-dd HH:MM'
                             });
@@ -177,9 +184,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Apakah anda yakin ingin menghapus tugas Menyelesaikan Progres FP ?</p>
-                <button type="submit" class="btn btn-primary">Iya, Saya yakin</button>
-                <button type="submit" class="btn btn-danger">Batalkan</button>
+                <form action="hapusTugas" method="post">
+                    <p>Apakah anda yakin ingin menghapus tugas Menyelesaikan Progres FP ?</p>
+                    <input type="text" id="tugas-id" name="tugas_id" hidden>
+                    <button type="submit" class="btn btn-primary">Iya, Saya yakin</button>
+                    <button data-dismiss="modal" class="btn btn-danger">Batalkan</button>
+                </form>
+
             </div>
         </div>
     </div>

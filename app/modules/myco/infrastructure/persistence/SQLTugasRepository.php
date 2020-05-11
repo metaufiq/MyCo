@@ -46,7 +46,15 @@ class SqlTugasRepository implements TugasRepository
 
     public function delete(Tugas $tugas)
     {
-        return "delete tugas";
+        $statement = sprintf("DELETE FROM Tugas WHERE id= :id");
+        $params = ['id' => $tugas->getId(),];
+        $this->db->execute($statement, $params);
+
+        $statement = sprintf("DELETE FROM Penugasan WHERE tugas= :tugas");
+        $params = ['tugas' => $tugas->getId()];
+        $this->db->execute($statement, $params);
+
+        return true;
     }
 
     public function edit(Tugas $tugas)
