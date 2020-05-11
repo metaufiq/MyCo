@@ -7,17 +7,21 @@ namespace Index\Modules\MyCo\Presentation\Controllers\Web;
 use Index\Modules\MyCo\Application\CreateTugas\CreateTugasRequest;
 use Index\Modules\MyCo\Application\CreateTugas\CreateTugasService;
 use Index\Modules\MyCo\Application\DeleteTugas\DeleteTugasRequest;
+use Index\Modules\MyCo\Application\EditTugas\EditTugasRequest;
 
 class IndexController extends ControllerBase
 {
     protected $viewAllTugasService;
     protected $createTugasService;
-    protected $deletTugasService;
+    protected $editTugasService;
+    protected $deleteTugasService;
+
 
     public function initialize()
     {
         $this->viewAllTugasService = $this->di->get('viewAllTugasService');
         $this->createTugasService = $this->di->get('createTugasService');
+        $this->editTugasService = $this->di->get('editTugasService');
         $this->deleteTugasService = $this->di->get('deleteTugasService');
     }
 
@@ -39,17 +43,26 @@ class IndexController extends ControllerBase
 
         $tugas = $request["tugas_nama"];
 
-        $karyawan = isset($request->tugas_karyawan) ? $request["tugas_karyawan"] : [1, 2, 3];
+        $pegawai = isset($request->tugas_pegawai) ? $request["tugas_pegawai"] : [1, 2, 3];
         $tenggatWaktu = $request["tugas_tenggat_waktu"] . ":00";
 
 
-        $request = new CreateTugasRequest($tugas, $karyawan, $tenggatWaktu);
+        $request = new CreateTugasRequest($tugas, $pegawai, $tenggatWaktu);
         $response = $this->createTugasService->handle($request);
 
         return $this->_redirectBack();
     }
     public function ubahTugasAction()
     {
+        $request = $this->request->get();
+        $id = $request["tugas_id"];
+        $tugas = $request["tugas_nama"];
+        $pegawai = isset($request->tugas_pegawai) ? $request["tugas_pegawai"] : [1, 2, 3];
+        $tenggatWaktu = $request["tugas_tenggat_waktu"] . ":00";
+        $status = $request["status"];
+
+        $request = new EditTugasRequest($id, $tugas, $pegawai, $tenggatWaktu, $status);
+        $response = $this->editTugasService->handle($request);
 
         return $this->_redirectBack();
     }

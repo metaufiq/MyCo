@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Index\Modules\MyCo\Application\CreateTugas\CreateTugasService;
 use Index\Modules\MyCo\Application\DeleteTugas\DeleteTugasService;
+use Index\Modules\MyCo\Application\EditTugas\EditTugasService;
 use Index\Modules\MyCo\Application\ViewAllTugas\ViewAllTugasService;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlTugasRepository;
 use Phalcon\Escaper;
@@ -86,6 +87,11 @@ $di->set('viewAllTugasService', function () use ($di) {
 
 $di->set('createTugasService', function () use ($di) {
     return new CreateTugasService($di->get('tugasRepository'));
+});
+
+
+$di->set('editTugasService', function () use ($di) {
+    return new EditTugasService($di->get('tugasRepository'));
 });
 
 $di->set('deleteTugasService', function () use ($di) {

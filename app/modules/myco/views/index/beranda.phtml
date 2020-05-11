@@ -122,9 +122,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="beranda">
+                <form action="ubahTugas">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Judul Tugas</label>
+                        <input type="text" id="tugas-id" name="tugas_id" hidden>
+
                         <input type="text" class="form-control" id="tugas-nama" name="tugas_nama" aria-describedby="emailHelp" placeholder="Masukan Judul">
                     </div>
                     <!-- <div class="form-group">
@@ -143,7 +145,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Status Pegerjaan</label>
-                        <select class="form-control" id="tugas-status">
+                        <select class="form-control" id="tugas-status" name="tugas_status">
                             <option value="1">Ditugaskan</option>
                             <option value="2">Selesai</option>
                             <option value="0">Telat</option>
@@ -195,7 +197,7 @@
     $(document).on("click", "#open-modal-tugas-ubah", function() {
         var id = $(this).data('id');
         var tugas = $(this).data('tugas');
-        var tenggatWaktu = $(this).data('tenggatwaktu');
+        var tenggatWaktu = $(this).data('tenggatwaktu').slice(0, -3);
         var status = $(this).data('status');
 
         $(".modal-body  #tugas-id").val(id);

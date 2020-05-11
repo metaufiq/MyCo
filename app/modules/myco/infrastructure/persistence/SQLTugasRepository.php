@@ -59,6 +59,14 @@ class SqlTugasRepository implements TugasRepository
 
     public function edit(Tugas $tugas)
     {
-        return "edit tugas";
+        $statement = sprintf("UPDATE Tugas SET  tugas=:tugas, tenggat_waktu=:tenggatWaktu, `status`= :s WHERE id= :id");
+        $params = ['tugas'=>$tugas->getNama(),'tenggatWaktu'=>$tugas->getTenggatWaktu(),'s' => $tugas->getStatus(), 'id' => $tugas->getId()];
+        $this->db->execute($statement, $params);
+        foreach ($tugas->getPegawai() as $pegawai) {
+            $statement = sprintf("UPDATE Penugasan SET  pegawai=:pegawai WHERE tugas=:tugas");
+            $params = ['tugas' => $tugas->getId, 'pegawai' => $pegawai];
+            $this->db->execute($statement, $params);
+        }
+        return true;
     }
 }
