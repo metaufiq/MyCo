@@ -17,13 +17,8 @@ class SqlTingkatPegawaiRepository implements TingkatPegawaiRepository
     }
     public function save(TingkatPegawai $tingkat)
     {
-        $statement = sprintf("INSERT INTO TingkatPegawai(tingkat_nama, tingkat_jenis, tingkat_golongan, tingkat_pendidikan, 
-        tingkat_lamakerja, tingkat_gaji) 
-        
-        VALUES(:nama,  :jenis, :golongan, :pendidikan, :lamakerja, :gaji_dasar)");
-        $params = ['nama' => $tingkat->getNama(), 'jenis' => $tingkat->getJenis(), 'golongan' => $tingkat->getGolongan(), 
-        'pendidikan' => $tingkat->getPendidikan(), 'lamakerja' => $tingkat->getLamaKerja(), 
-        'gaji_dasar' => $tingkat->getGajiDasar()];
+        $statement = sprintf("INSERT INTO tingkat_pegawai(tingkat_nama, tingkat_jenis, tingkat_golongan, tingkat_pendidikan, tingkat_lamakerja, tingkat_gaji) VALUES(:nama,  :jenis, :golongan, :pendidikan, :lamakerja, :gaji_dasar)");
+        $params = ['nama' => $tingkat->getNama(), 'jenis' => $tingkat->getJenis(), 'golongan' => $tingkat->getGolongan(), 'pendidikan' => $tingkat->getPendidikan(), 'lamakerja' => $tingkat->getLamaKerja(), 'gaji_dasar' => $tingkat->getGajiDasar()];
         
         $this->db->execute($statement, $params);
 
@@ -32,8 +27,7 @@ class SqlTingkatPegawaiRepository implements TingkatPegawaiRepository
 
     public function getAll()
     {
-        $statement = sprintf("SELECT tingkat_nama, tingkat_jenis, tingkat_golongan, tingkat_pendidikan,
-        tingkat_lamakerja, tingkat_gaji FROM tingkat_pegawai");
+        $statement = sprintf("SELECT tingkat_nama, tingkat_jenis, tingkat_golongan, tingkat_pendidikan, tingkat_lamakerja, tingkat_gaji FROM tingkat_pegawai");
 
         return $this->db->query($statement)
             ->fetchAll(PDO::FETCH_ASSOC);
@@ -51,12 +45,8 @@ class SqlTingkatPegawaiRepository implements TingkatPegawaiRepository
     public function edit(TingkatPegawai $tingkat)
     {   
 
-        $statement = sprintf("UPDATE TingkatPegawai SET  tingkat_nama= :nama, tingkat_jenis= :jenis, 
-        tingkat_golongan= :golongan, tingkat_pendidikan= :pendidikan, tingkat_lamakerja= :lamakerja, 
-        tingkat_gaji= :gaji WHERE id= :id");
-        $params = ['nama' => $tingkat->getNama(), 'jenis' => $tingkat->getJenis(), 'golongan' => $tingkat->getGolongan,
-        'pendidikan' => $tingkat->getPendidikan(), 'lamakerja' => $tingkat->getLamaKerja(), 
-        'gaji' => $tingkat->getGajiDasar()];
+        $statement = sprintf("UPDATE tingkat_pegawai SET tingkat_nama= :nama, tingkat_jenis= :jenis, tingkat_golongan= :golongan, tingkat_pendidikan= :pendidikan, tingkat_lamakerja= :lamakerja, tingkat_gaji= :gaji WHERE id= :id");
+        $params = ['nama' => $tingkat->getNama(), 'jenis' => $tingkat->getJenis(), 'golongan' => $tingkat->getGolongan, 'pendidikan' => $tingkat->getPendidikan(), 'lamakerja' => $tingkat->getLamaKerja(), 'gaji' => $tingkat->getGajiDasar()];
         
         $this->db->execute($statement, $params);
         // return true;

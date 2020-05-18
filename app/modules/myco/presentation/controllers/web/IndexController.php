@@ -8,6 +8,7 @@ use Index\Modules\MyCo\Application\CreateManajer\CreateManajerRequest;
 use Index\Modules\MyCo\Application\CreateTugas\CreateTugasRequest;
 use Index\Modules\MyCo\Application\DeleteTugas\DeleteTugasRequest;
 use Index\Modules\MyCo\Application\EditTugas\EditTugasRequest;
+use Index\Modules\MyCo\Application\CreateTingkatPegawai\CreateTingkatPegawaiRequest;
 
 class IndexController extends ControllerBase
 {
@@ -19,6 +20,7 @@ class IndexController extends ControllerBase
     protected $createTugasService;
     protected $editTugasService;
     protected $deleteTugasService;
+    protected $createTingkatPegawaiService;
 
 
     public function initialize()
@@ -28,6 +30,7 @@ class IndexController extends ControllerBase
         $this->editTugasService = $this->di->get('editTugasService');
         $this->deleteTugasService = $this->di->get('deleteTugasService');
         $this->createManajerService = $this->di->get('createManajerService');
+        $this->createTingkatPegawaiService = $this->di->get('createTingkatPegawaiService');
     }
 
     public function indexAction()
@@ -98,7 +101,22 @@ class IndexController extends ControllerBase
         $response = $this->deleteTugasService->handle($request);
         return $this->_redirectBack();
     }
+    public function tambahTingkatPegawaiAction()
+    {
+        $request = $this->request->get();
+        
+        $nama = $request["tingkat_nama"];
+        $jenis = $request["tingkat_jenis"];
+        $golongan = $request["tingkat_golongan"];
+        $pendidikan = $request["tingkat_pendidikan"];
+        $lamakerja = $request["tingkat_lamakerja"];
+        $gaji_dasar = $request["tingkat_gaji"];
 
+        $request = new CreateTingkatPegawaiRequest($nama, $jenis, $golongan, $pendidikan, $lamakerja, $gaji_dasar);
+        $response = $this->createTingkatPegawaiService->handle($request);
+
+        return $this->_redirectBack();
+    }
 
     protected function _redirectBack()
     {

@@ -7,8 +7,10 @@ use Index\Modules\MyCo\Application\CreateTugas\CreateTugasService;
 use Index\Modules\MyCo\Application\DeleteTugas\DeleteTugasService;
 use Index\Modules\MyCo\Application\EditTugas\EditTugasService;
 use Index\Modules\MyCo\Application\ViewAllTugas\ViewAllTugasService;
+use Index\Modules\MyCo\Application\CreateTingkatPegawai\CreateTingkatPegawaiService;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlManajerRepository;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlTugasRepository;
+use Index\Modules\MyCo\Infrastructure\Persistence\SqlTingkatPegawaiRepository;
 use Phalcon\Escaper;
 use Phalcon\Flash\Direct as Flash;
 use Phalcon\Mvc\Dispatcher;
@@ -87,6 +89,10 @@ $di->set('manajerRepository', function () use ($di) {
     return new SqlManajerRepository($di->get('db'));
 });
 
+$di->set('tingkatPegawaiRepository', function () use ($di) {
+    return new SqlTingkatPegawaiRepository($di->get('db'));
+});
+
 $di->set('createManajerService', function () use ($di) {
     return new CreateManajerService($di->get('manajerRepository'));
 });
@@ -106,4 +112,8 @@ $di->set('editTugasService', function () use ($di) {
 
 $di->set('deleteTugasService', function () use ($di) {
     return new DeleteTugasService($di->get('tugasRepository'));
+});
+
+$di->set('createTingkatPegawaiService', function () use ($di) {
+    return new CreateTingkatPegawaiService($di->get('tingkatPegawaiRepository'));
 });
