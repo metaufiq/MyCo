@@ -3,7 +3,6 @@
 
 namespace Index\Modules\MyCo\Application\CreateTugas;
 
-
 class CreateTugasRequest
 {
     private $tugas;

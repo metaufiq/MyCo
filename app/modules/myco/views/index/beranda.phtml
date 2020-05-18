@@ -23,6 +23,9 @@
     <li class="nav-item">
         <a class="nav-link" id="pills-tugas-tab" data-toggle="pill" href="#pills-tugas" role="tab" aria-controls="pills-tugas" aria-selected="false">Tugas</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-tingkat-tab" data-toggle="pill" href="#pills-tingkat" role="tab" aria-controls="pills-tingkat" aria-selected="false">Tingkat Pegawai</a>
+    </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-pegawai" role="tabpanel" aria-labelledby="pills-pegawai-tab">...</div>
@@ -74,9 +77,40 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tugas-tambah">Tambah Tugas</button>
         </div>
     </div>
+    <div class="tab-pane fade" id="pills-tingkat" role="tabpanel" aria-labelledby="pills-tingkat-tab" style="padding-top:50px">
+        <table class="table" id="tingkat-tabel">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Tingkat Pegawai</th>
+                    <th scope="col">Jenis Kepegawaian</th>
+                    <th scope="col">Golongan</th>
+                    <th scope="col">Pendidikan (minimal)</th>
+                    <th scope="col">Lama Kerja (minimal)</th>
+                    <th scope="col">Gaji Dasar</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+                // $i = 1;
+                // foreach ($allTingkat as $tingkat) {
+                // ?>
+                    <tr>
+                    
+                     </tr>
+                 <?php
+                //     $i++;
+                // }
+                ?>
+            </tbody>
+        </table>
+
+        <div class="row justify-content-center align-items-center">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tingkat-tambah">Tambah Tingkat Pegawai</button>
+        </div>
+    </div>
 </div>
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="modal-tugas-tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -172,6 +206,126 @@
                 <form action="hapusTugas" method="post">
                     <p>Apakah anda yakin ingin menghapus tugas Menyelesaikan Progres FP ?</p>
                     <input type="text" id="tugas-id" name="tugas_id" hidden>
+                    <button type="submit" class="btn btn-primary">Iya, Saya yakin</button>
+                    <button data-dismiss="modal" class="btn btn-danger">Batalkan</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-tingkat-tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Tingkat Pegawai</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="tambahTugas" id="form-tambah-tugas" method="POST">
+                    <div class="form-group" style="margin-bottom:20px">
+                        <label for="exampleInputEmail1">Tingkat Pegawai</label>
+                        <input type="text" class="form-control" name="tingkat_nama" aria-describedby="emailHelp" placeholder="Masukan Jenis Tingkat Pegawai">
+                    </div>
+                    <div class="form-group" style="margin-bottom:20px">
+                        <label for="exampleInputEmail1">Jenis Kepegawaian</label>
+                        <input type="text" class="form-control" name="tingkat_jenis" aria-describedby="emailHelp" placeholder="Masukan Jenis Kepegawaian">
+                    </div>
+                    <div class="form-group" style="margin-bottom:20px">
+                        <label for="exampleInputEmail1">Golongan</label>
+                        <input type="text" class="form-control" name="tingkat_golongan" aria-describedby="emailHelp" placeholder="Masukan Golongan Kepegawaian">
+                    </div>
+                    <div class="form-group" style="margin-bottom:20px">
+                        <label for="exampleInputEmail1">Pendidikan (minimal)</label>
+                        <input type="text" class="form-control" name="tingkat_pendidikan" aria-describedby="emailHelp" placeholder="Masukan Syarat Pendidikan Minimal">
+                    </div>
+                    <div class="form-group" style="margin-bottom:20px">
+                        <label for="exampleInputEmail1">Lama Kerja (minimal)</label>
+                        <input type="text" class="form-control" name="tingkat_lamakerja" aria-describedby="emailHelp" placeholder="Masukan Syarat Durasi Bekerja Minimal">
+                    </div>
+                    <div class="form-group" style="margin-bottom:20px">
+                        <label for="exampleInputEmail1">Gaji Dasar</label>
+                        <input type="text" class="form-control" name="tingkat_gaji" aria-describedby="emailHelp" placeholder="Masukan Gaji Dasar">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="margin-top:50px">Tambah</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-tingkat-ubah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ubah Tingkat Pegawai</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="ubahTingkat">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tingkat Pegawai</label>
+                        <input type="text" id="tingkat-id" name="tingkat_id" hidden>
+
+                        <input type="text" class="form-control" id="tingkat-nama" name="tingkat_nama" aria-describedby="emailHelp" placeholder="Masukan Tingkat Pegawai">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Jenis Kepegawaian</label>
+                        <input type="text" id="tingkat-jenis" name="tingkat_jenis" hidden>
+
+                        <input type="text" class="form-control" id="tingkat-jenis" name="tingkat_jenis" aria-describedby="emailHelp" placeholder="Masukan Jenis Kepegawaian">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Golongan</label>
+                        <input type="text" id="tingkat-golongan" name="tingkat_golongan" hidden>
+
+                        <input type="text" class="form-control" id="tingkat-golongan" name="tingkat_golongan" aria-describedby="emailHelp" placeholder="Masukan Golongan Kepegawaian">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Pendidikan (minimal)</label>
+                        <input type="text" id="tingkat-pendidikan" name="tingkat_pendidikan" hidden>
+
+                        <input type="text" class="form-control" id="tingkat-pendidikan" name="tingkat_pendidikan" aria-describedby="emailHelp" placeholder="Masukan Syarat Pendidikan Minimal">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Lama Kerja (minimal)</label>
+                        <input type="text" id="tingkat-lamakerja" name="tingkat_lamakerja" hidden>
+
+                        <input type="text" class="form-control" id="tingkat-lamakerja" name="tingkat_lamakerja" aria-describedby="emailHelp" placeholder="Masukan Syarat Lama Kerja Minimal">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Gaji Dasar</label>
+                        <input type="text" id="tingkat-gaji" name="tingkat_gaji" hidden>
+
+                        <input type="text" class="form-control" id="tingkat-gaji" name="tingkat_gaji" aria-describedby="emailHelp" placeholder="Masukan Gaji Dasar">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ubah</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-tingkat-hapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Tingkat Pegawai</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="hapusTugas" method="post">
+                    <p>Apakah anda yakin ingin menghapus tingkat pegawai "ini" ?</p>
+                    <input type="text" id="tingkat-id" name="tingkat_id" hidden>
                     <button type="submit" class="btn btn-primary">Iya, Saya yakin</button>
                     <button data-dismiss="modal" class="btn btn-danger">Batalkan</button>
                 </form>
