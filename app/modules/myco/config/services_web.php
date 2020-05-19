@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 use Index\Modules\MyCo\Application\CreateManajer\CreateManajerService;
 use Index\Modules\MyCo\Application\CreateTugas\CreateTugasService;
+use Index\Modules\MyCo\Application\CreateTingkatPegawai\CreateTingkatPegawaiService;
+use Index\Modules\MyCo\Application\CreatePegawai\CreatePegawaiService;
 use Index\Modules\MyCo\Application\DeleteTugas\DeleteTugasService;
 use Index\Modules\MyCo\Application\EditTugas\EditTugasService;
 use Index\Modules\MyCo\Application\ViewAllTugas\ViewAllTugasService;
 use Index\Modules\MyCo\Application\ViewAllTingkatPegawai\ViewAllTingkatPegawaiService;
-use Index\Modules\MyCo\Application\CreateTingkatPegawai\CreateTingkatPegawaiService;
 use Index\Modules\MyCo\Application\DeleteTingkatPegawai\DeleteTingkatPegawaiService;
 use Index\Modules\MyCo\Application\EditTingkatPegawai\EditTingkatPegawaiService;
+use Index\Modules\MyCo\Application\ViewAllPegawai\ViewAllPegawaiService;
+use Index\Modules\MyCo\Application\EditPegawai\EditPegawaiService;
+use Index\Modules\MyCo\Application\DeletePegawai\DeletePegawaiService;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlManajerRepository;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlTugasRepository;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlTingkatPegawaiRepository;
+use Index\Modules\MyCo\Infrastructure\Persistence\SqlPegawaiRepository;
 use Phalcon\Escaper;
 use Phalcon\Flash\Direct as Flash;
 use Phalcon\Mvc\Dispatcher;
@@ -96,6 +101,10 @@ $di->set('tingkatPegawaiRepository', function () use ($di) {
     return new SqlTingkatPegawaiRepository($di->get('db'));
 });
 
+$di->set('pegawaiRepository', function () use ($di) {
+    return new SqlPegawaiRepository($di->get('db'));
+});
+
 $di->set('createManajerService', function () use ($di) {
     return new CreateManajerService($di->get('manajerRepository'));
 });
@@ -131,4 +140,20 @@ $di->set('editTingkatPegawaiService', function() use ($di) {
 
 $di->set('deleteTingkatPegawaiService', function () use ($di) {
     return new DeleteTingkatPegawaiService($di->get('tingkatPegawaiRepository'));
+});
+
+$di->set('viewAllPegawaiService', function () use ($di) {
+    return new ViewAllPegawaiService($di->get('pegawaiRepository'));
+});
+
+$di->set('createPegawaiService', function () use ($di) {
+    return new CreatePegawaiService($di->get('pegawaiRepository'));
+});
+
+$di->set('editPegawaiService', function() use ($di) {
+    return new EditPegawaiService($di->get('pegawaiRepository'));
+});
+
+$di->set('deletePegawaiService', function () use ($di) {
+    return new DeletePegawaiService($di->get('pegawaiRepository'));
 });

@@ -14,6 +14,9 @@ use Index\Modules\MyCo\Application\EditTugas\EditTugasRequest;
 use Index\Modules\MyCo\Application\CreateTingkatPegawai\CreateTingkatPegawaiRequest;
 use Index\Modules\MyCo\Application\EditTingkatPegawai\EditTingkatPegawaiRequest;
 use Index\Modules\MyCo\Application\DeleteTingkatPegawai\DeleteTingkatPegawaiRequest;
+use Index\Modules\MyCo\Application\CreatePegawai\CreatePegawaiRequest;
+use Index\Modules\MyCo\Application\EditPegawai\EditPegawaiRequest;
+use Index\Modules\MyCo\Application\DeletePegawai\DeletePegawaiRequest;
 
 class IndexController extends ControllerBase
 {
@@ -28,7 +31,10 @@ class IndexController extends ControllerBase
     protected $createTingkatPegawaiService;
     protected $editTingkatPegawaiService;
     protected $deleteTingkatPegawaiService;
-    
+    protected $viewAllPegawaiService;
+    protected $createPegawaiService;
+    protected $editPegawaiService;
+    protected $deletePegawaiService;
 
     public function initialize()
     {
@@ -41,6 +47,10 @@ class IndexController extends ControllerBase
         $this->createTingkatPegawaiService = $this->di->get('createTingkatPegawaiService');
         $this->editTingkatPegawaiService = $this->di->get('editTingkatPegawaiService');
         $this->deleteTingkatPegawaiService = $this->di->get('deleteTingkatPegawaiService');
+        $this->viewAllPegawaiService = $this->di->get('viewAllPegawaiService');
+        $this->createPegawaiService = $this->di->get('createPegawaiService');
+        $this->editPegawaiService = $this->di->get('editPegawaiService');
+        $this->deletePegawaiService = $this->di->get('deletePegawaiService');
     }
 
     public function indexAction()
@@ -76,10 +86,12 @@ class IndexController extends ControllerBase
 
         $response = $this->viewAllTugasService->handle();
         $response2 = $this->viewAllTingkatPegawaiService->handle();
+        $response3 = $this->viewAllPegawaiService->handle();
 
         $this->view->setVars(array(
             'allTugas' => $response->get(),
-            'allTingkat' => $response2->get()
+            'allTingkat' => $response2->get(),
+            'allPegawai' => $response3->get()
         ));
     }
 
@@ -167,6 +179,46 @@ class IndexController extends ControllerBase
         $request = new DeleteTingkatPegawaiRequest($id);
 
         $response = $this->deleteTingkatPegawaiService->handle($request);
+        return $this->_redirectBack();
+    }
+
+    public function tambahPegawaiAction()
+    {
+        $request = $this->request->get();
+
+        $nama = $request["pegawai_nama"];
+        $alamat = $request["pegawai_alamat"];
+        $no_hp = $request["pegawai_no_hp"];
+        $tingkat_pegawai = isset($request->tingkat_pegawai) ? $request["tingkat_pegawai"] : [0];
+
+        $request = new CreatePegawaiRequest($nama, $alamat, $no_hp, $tingkat_pegawai);
+        $response = $this->createPegawaiService->handle($request);
+
+        return $this->_redirectBack();
+    }
+    public function ubahPegawaiAction()
+    {
+        $request = $this->request->get();
+        $id = $request["pegawai_id"];
+        $nama = $request["pegawai_nama"];
+        $tingkat_pegawai = isset($request->tingkat_pegawai) ? $request["tingkat_pegawai"] : [0];
+        $alamat = $request["pegawai_alamat"];
+        $no_hp = $request["pegawai_no_hp"];
+
+        $request = new EditPegawaiRequest($id, $nama, $alamat, $no_hp, $tingkat_pegawai);
+        $response = $this->editPegawaiService->handle($request);
+        
+
+        return $this->_redirectBack();
+    }
+    public function hapusPegawaiAction()
+    {
+        $request = $this->request->get();
+        $id = $request["pegawai_id"];
+
+        $request = new DeletePegawaiRequest($id);
+
+        $response = $this->deletePegawaiService->handle($request);
         return $this->_redirectBack();
     }
 }

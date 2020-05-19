@@ -17,7 +17,7 @@ class EditPegawaiService{
     public function handle(EditPegawaiRequest $request) : GenericResponse
     {
         try {
-            $pegawai = new Pegawai($request->getId(), $request->getNama(), $request->getAlamat(), $request->getNoHp());
+            $pegawai = new Pegawai($request->getId(), $request->getNama(), $request->getAlamat(), $request->getNoHp(), null, null, $request->getTingkatPegawai());
             $response = $this->pegawaiRepository->edit($pegawai);
             
             return new GenericResponse($response, "Pegawai edited successfully.");

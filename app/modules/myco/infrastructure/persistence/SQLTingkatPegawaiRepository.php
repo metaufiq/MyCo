@@ -35,6 +35,17 @@ class SqlTingkatPegawaiRepository implements TingkatPegawaiRepository
 
     public function delete(TingkatPegawai $tingkat)
     {
+        $statement = sprintf("SELECT id FROM pegawai WHERE t_pegawai_id= :tp_id");
+        $params = ['tp_id' => $tingkat->getId()];
+        $pegawaiTanpaTingkat = $this->db->query($statement, $params)
+            ->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($pegawaiTanpaTingkat as $pegawai) {
+            $statement = sprintf("UPDATE pegawai SET t_pegawai_id= NULL WHERE id= :id");
+            $params = ['id' => $pegawai['id']];
+            $this->db->execute($statement, $params);
+        }
+
         $statement = sprintf("DELETE FROM tingkat_pegawai WHERE id= :id");
         $params = ['id' => $tingkat->getId()];
         $this->db->execute($statement, $params);

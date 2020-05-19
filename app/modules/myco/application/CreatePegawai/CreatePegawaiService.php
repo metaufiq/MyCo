@@ -18,7 +18,7 @@ class CreatePegawaiService{
     public function handle(CreatePegawaiRequest $request) : GenericResponse
     {
         try {
-            $pegawai = new Pegawai(NULL, $request->getNama(), $request->getAlamat(), $request->getNoHp());
+            $pegawai = new Pegawai(NULL, $request->getNama(), $request->getAlamat(), $request->getNoHp(), NULL, NULL, $request->getTingkatPegawai());
             $response = $this->pegawaiRepository->save($pegawai);
             
             return new GenericResponse($response, "Pegawai baru telah berhasil ditambahkan.");

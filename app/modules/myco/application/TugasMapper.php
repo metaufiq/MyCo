@@ -46,7 +46,7 @@ class TugasMapper
         foreach ($temp as $tugas) {
             $allPegawai = [];
             foreach ($tugas['pegawai'] as $pegawai ) {
-                $pegawai = new Pegawai($pegawai['id'], $pegawai['nama'], null, null);
+                $pegawai = new Pegawai($pegawai['id'], $pegawai['nama'], null, null, null, null, null);
                 array_push($allPegawai, $pegawai);
             }
             $newTugas = new Tugas($tugas['tugas']['id'], $tugas['tugas']['nama'], $allPegawai, $tugas['tenggatWaktu'], $tugas['status']);

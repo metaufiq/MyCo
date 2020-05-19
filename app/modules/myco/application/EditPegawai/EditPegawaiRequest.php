@@ -8,13 +8,15 @@ class EditPegawaiRequest
     private $nama;
     private $alamat;
     private $no_hp;
+    private $tingkat_pegawai;
 
-    public function __construct($id, $nama, $alamat, $no_hp)
+    public function __construct($id, $nama, $alamat, $no_hp, $tingkat_pegawai)
     {
         $this->id = $id;
         $this->nama = $nama;
         $this->alamat = $alamat;
         $this->no_hp = $no_hp;
+        $this->tingkat_pegawai = $tingkat_pegawai;
     }
     public function getId()
     {
@@ -54,6 +56,16 @@ class EditPegawaiRequest
     public function setNoHp($no_hp)
     {
         $this->no_hp = $no_hp;
+    }
+
+    public function getTingkatPegawai()
+    {
+        return $this->tingkat_pegawai;
+    }
+
+    public function setTingkatPegawai($tingkat_pegawai)
+    {
+        $this->tingkat_pegawai = $tingkat_pegawai;
     }
     
 }

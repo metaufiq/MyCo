@@ -17,7 +17,7 @@ class DeletePegawaiService{
     public function handle(DeletePegawaiRequest $request) : GenericResponse
     {
         try {
-            $pegawai = new Pegawai($request->getId(), null, null, null);
+            $pegawai = new Pegawai($request->getId(), null, null, null, null, null, null);
             $response = $this->pegawaiRepository->delete($pegawai);
             
             return new GenericResponse($response, "Pegawai deleted successfully.");

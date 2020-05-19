@@ -12,7 +12,7 @@ class PegawaiMapper
     {
         foreach ($allPegawai as $pegawai) {
             
-            $newPegawai = new Pegawai($pegawai['id'], $pegawai['nama'], $pegawai['alamat'], $pegawai['no_hp'] );
+            $newPegawai = new Pegawai($pegawai['id'], $pegawai['nama'], $pegawai['alamat'], $pegawai['no_hp'], $pegawai['absensi'], $pegawai['gaji'], $pegawai['tingkat_pegawai']);
             
             array_push($this->pegawai, $newPegawai);
         }
