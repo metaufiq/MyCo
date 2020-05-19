@@ -93,15 +93,26 @@
             </thead>
             <tbody>
             <?php
-                // $i = 1;
-                // foreach ($allTingkat as $tingkat) {
-                // ?>
+                $i = 1;
+                foreach ($allTingkat as $tingkat) {
+                ?>
                     <tr>
-                    
+                    <th scope="row"><?php echo $i ?></th>
+                        <td><?php echo $tingkat->getNama() ?></td>
+                        <td><?php echo $tingkat->getJenis() ?></td>
+                        <td><?php echo $tingkat->getGolongan() ?></td>
+                        <td><?php echo $tingkat->getPendidikan() ?></td>
+                        <td><?php echo $tingkat->getLamaKerja() ?></td>
+                        <td><?php echo $tingkat->getGajiDasar() ?></td>
+
+                        <td>
+                            <button type="button" class="btn btn-primary" id="open-modal-tugas-ubah" data-toggle="modal" data-target="#modal-tugas-ubah" data-id="<?php echo $tugas->getId(); ?>" data-tugas="<?php echo $tugas->getNama(); ?>" data-tenggatwaktu="<?php echo $tugas->getTenggatWaktu(); ?>" data-status="<?php echo $tugas->getStatus()['id']; ?>">Ubah Tugas</button>
+                            <button type="button" class="btn btn-danger" id="open-modal-tugas-hapus" data-toggle="modal" data-target="#modal-tugas-hapus" data-id="<?php echo $tugas->getId(); ?>">Hapus Tugas</button>
+                        </td>
                      </tr>
                  <?php
-                //     $i++;
-                // }
+                    $i++;
+                }
                 ?>
             </tbody>
         </table>

@@ -27,7 +27,7 @@ class SqlTingkatPegawaiRepository implements TingkatPegawaiRepository
 
     public function getAll()
     {
-        $statement = sprintf("SELECT tingkat_nama, tingkat_jenis, tingkat_golongan, tingkat_pendidikan, tingkat_lamakerja, tingkat_gaji FROM tingkat_pegawai");
+        $statement = sprintf("SELECT id, tingkat_nama, tingkat_jenis, tingkat_golongan, tingkat_pendidikan, tingkat_lamakerja, tingkat_gaji FROM tingkat_pegawai");
 
         return $this->db->query($statement)
             ->fetchAll(PDO::FETCH_ASSOC);
@@ -36,7 +36,7 @@ class SqlTingkatPegawaiRepository implements TingkatPegawaiRepository
     public function delete(TingkatPegawai $tingkat)
     {
         $statement = sprintf("DELETE FROM tingkat_pegawai WHERE id= :id");
-        $params = ['id' => $tingkat->getId(),];
+        $params = ['id' => $tingkat->getId()];
         $this->db->execute($statement, $params);
 
         return true;

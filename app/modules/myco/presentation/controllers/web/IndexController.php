@@ -20,6 +20,7 @@ class IndexController extends ControllerBase
     protected $createTugasService;
     protected $editTugasService;
     protected $deleteTugasService;
+    protected $viewAllTingkatPegawaiService;
     protected $createTingkatPegawaiService;
 
 
@@ -30,6 +31,7 @@ class IndexController extends ControllerBase
         $this->editTugasService = $this->di->get('editTugasService');
         $this->deleteTugasService = $this->di->get('deleteTugasService');
         $this->createManajerService = $this->di->get('createManajerService');
+        $this->viewAllTingkatPegawaiService = $this->di->get('viewAllTingkatPegawaiService');
         $this->createTingkatPegawaiService = $this->di->get('createTingkatPegawaiService');
     }
 
@@ -56,8 +58,10 @@ class IndexController extends ControllerBase
     public function berandaAction()
     {
         $response = $this->viewAllTugasService->handle();
+        $response2 = $this->viewAllTingkatPegawaiService->handle();
         $this->view->setVars(array(
-            'allTugas' => $response->get()
+            'allTugas' => $response->get(),
+            'allTingkat' => $response2->get()
         ));
     }
 
