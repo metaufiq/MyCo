@@ -86,12 +86,12 @@ class EditTingkatPegawaiRequest
         $this->lamakerja = $lamakerja;
     }
 
-    public function getGaji()
+    public function getGajiDasar()
     {
         return $this->gaji_dasar;
     }
 
-    public function setGaji($gaji_dasar)
+    public function setGajiDasar($gaji_dasar)
     {
         $this->gaji_dasar = $gaji_dasar;
     }

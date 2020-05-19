@@ -9,12 +9,12 @@ use Index\Modules\MyCo\Application\CreateTugas\CreateTugasRequest;
 use Index\Modules\MyCo\Application\DeleteTugas\DeleteTugasRequest;
 use Index\Modules\MyCo\Application\EditTugas\EditTugasRequest;
 use Index\Modules\MyCo\Application\CreateTingkatPegawai\CreateTingkatPegawaiRequest;
+use Index\Modules\MyCo\Application\EditTingkatPegawai\EditTingkatPegawaiRequest;
 
 class IndexController extends ControllerBase
 {
 
     protected $createManajerService;
-
 
     protected $viewAllTugasService;
     protected $createTugasService;
@@ -22,6 +22,7 @@ class IndexController extends ControllerBase
     protected $deleteTugasService;
     protected $viewAllTingkatPegawaiService;
     protected $createTingkatPegawaiService;
+    protected $editTingkatPegawaiService;
 
 
     public function initialize()
@@ -33,6 +34,7 @@ class IndexController extends ControllerBase
         $this->createManajerService = $this->di->get('createManajerService');
         $this->viewAllTingkatPegawaiService = $this->di->get('viewAllTingkatPegawaiService');
         $this->createTingkatPegawaiService = $this->di->get('createTingkatPegawaiService');
+        $this->editTingkatPegawaiService = $this->di->get('editTingkatPegawaiService');
     }
 
     public function indexAction()
@@ -59,6 +61,7 @@ class IndexController extends ControllerBase
     {
         $response = $this->viewAllTugasService->handle();
         $response2 = $this->viewAllTingkatPegawaiService->handle();
+
         $this->view->setVars(array(
             'allTugas' => $response->get(),
             'allTingkat' => $response2->get()
@@ -121,7 +124,22 @@ class IndexController extends ControllerBase
 
         return $this->_redirectBack();
     }
+    public function ubahTingkatPegawaiAction()
+    {
+        $request = $this->request->get();
+        $id = $request["tingkat_id"];
+        $tingkat = $request["tingkat_nama"];
+        $jenis = $request["tingkat_jenis"];
+        $golongan = $request["tingkat_golongan"];
+        $pendidikan = $request["tingkat_pendidikan"];
+        $lamakerja = $request["tingkat_lamakerja"];
+        $gaji_dasar = $request["tingkat_gaji"];
 
+        $request = new EditTingkatPegawaiRequest($id, $tingkat, $jenis, $golongan, $pendidikan, $lamakerja, $gaji_dasar);
+        $response = $this->editTingkatPegawaiService->handle($request);
+        
+        return $this->_redirectBack();
+    }
     protected function _redirectBack()
     {
         return $this->response->redirect($_SERVER['HTTP_REFERER']);

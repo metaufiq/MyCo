@@ -106,8 +106,8 @@
                         <td><?php echo $tingkat->getGajiDasar() ?></td>
 
                         <td>
-                            <button type="button" class="btn btn-primary" id="open-modal-tugas-ubah" data-toggle="modal" data-target="#modal-tugas-ubah" data-id="<?php echo $tugas->getId(); ?>" data-tugas="<?php echo $tugas->getNama(); ?>" data-tenggatwaktu="<?php echo $tugas->getTenggatWaktu(); ?>" data-status="<?php echo $tugas->getStatus()['id']; ?>">Ubah Tugas</button>
-                            <button type="button" class="btn btn-danger" id="open-modal-tugas-hapus" data-toggle="modal" data-target="#modal-tugas-hapus" data-id="<?php echo $tugas->getId(); ?>">Hapus Tugas</button>
+                            <button type="button" class="btn btn-primary" id="open-modal-tingkat-ubah" data-toggle="modal" data-target="#modal-tingkat-ubah" data-idtingkat="<?php echo $tingkat->getId(); ?>" data-namatingkat="<?php echo $tingkat->getNama(); ?>" data-jenistingkat="<?php echo $tingkat->getJenis(); ?>" data-golongantingkat="<?php echo $tingkat->getGolongan(); ?>" data-pendidikantingkat="<?php echo $tingkat->getPendidikan(); ?>" data-lamakerjatingkat="<?php echo $tingkat->getLamaKerja(); ?>" data-gajitingkat="<?php echo $tingkat->getGajiDasar(); ?>"> Ubah</button>
+                            <button type="button" class="btn btn-danger">Hapus</button>
                         </td>
                      </tr>
                  <?php
@@ -279,7 +279,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="ubahTingkat">
+                <form action="ubahTingkatPegawai">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tingkat Pegawai</label>
                         <input type="text" id="tingkat-id" name="tingkat_id" hidden>
@@ -288,32 +288,22 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Jenis Kepegawaian</label>
-                        <input type="text" id="tingkat-jenis" name="tingkat_jenis" hidden>
-
                         <input type="text" class="form-control" id="tingkat-jenis" name="tingkat_jenis" aria-describedby="emailHelp" placeholder="Masukan Jenis Kepegawaian">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Golongan</label>
-                        <input type="text" id="tingkat-golongan" name="tingkat_golongan" hidden>
-
                         <input type="text" class="form-control" id="tingkat-golongan" name="tingkat_golongan" aria-describedby="emailHelp" placeholder="Masukan Golongan Kepegawaian">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Pendidikan (minimal)</label>
-                        <input type="text" id="tingkat-pendidikan" name="tingkat_pendidikan" hidden>
-
                         <input type="text" class="form-control" id="tingkat-pendidikan" name="tingkat_pendidikan" aria-describedby="emailHelp" placeholder="Masukan Syarat Pendidikan Minimal">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Lama Kerja (minimal)</label>
-                        <input type="text" id="tingkat-lamakerja" name="tingkat_lamakerja" hidden>
-
                         <input type="text" class="form-control" id="tingkat-lamakerja" name="tingkat_lamakerja" aria-describedby="emailHelp" placeholder="Masukan Syarat Lama Kerja Minimal">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Gaji Dasar</label>
-                        <input type="text" id="tingkat-gaji" name="tingkat_gaji" hidden>
-
                         <input type="text" class="form-control" id="tingkat-gaji" name="tingkat_gaji" aria-describedby="emailHelp" placeholder="Masukan Gaji Dasar">
                     </div>
                     <button type="submit" class="btn btn-primary">Ubah</button>
@@ -324,7 +314,7 @@
 </div>
 
 
-<div class="modal fade" id="modal-tingkat-hapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="modal-tingkat-hapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -344,7 +334,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <script>
     $('.input-tenggat-waktu').datetimepicker({
@@ -370,6 +360,23 @@
         $(".modal-body  #tugas-tenggat-waktu").val(tenggatWaktu);
         $(".modal-body  #tugas-status").val(status);
 
+    });
 
+   $(document).on("click", "#open-modal-tingkat-ubah", function() {
+        var id = $(this).data('idtingkat');
+        var nama = $(this).data('namatingkat');
+        var jenis = $(this).data('jenistingkat');
+        var golongan = $(this).data('golongantingkat');
+        var pendidikan = $(this).data('pendidikantingkat');
+        var lamakerja = $(this).data('lamakerjatingkat');
+        var gaji_dasar = $(this).data('gajitingkat');
+
+        $(".modal-body  #tingkat-id").val(id);
+        $(".modal-body  #tingkat-nama").val(nama);
+        $(".modal-body  #tingkat-jenis").val(jenis);
+        $(".modal-body  #tingkat-golongan").val(golongan);
+        $(".modal-body  #tingkat-pendidikan").val(pendidikan);
+        $(".modal-body  #tingkat-lamakerja").val(lamakerja);
+        $(".modal-body  #tingkat-gaji").val(gaji_dasar);
     });
 </script>

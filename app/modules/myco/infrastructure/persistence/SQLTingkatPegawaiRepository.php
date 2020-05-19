@@ -45,8 +45,8 @@ class SqlTingkatPegawaiRepository implements TingkatPegawaiRepository
     public function edit(TingkatPegawai $tingkat)
     {   
 
-        $statement = sprintf("UPDATE tingkat_pegawai SET tingkat_nama= :nama, tingkat_jenis= :jenis, tingkat_golongan= :golongan, tingkat_pendidikan= :pendidikan, tingkat_lamakerja= :lamakerja, tingkat_gaji= :gaji WHERE id= :id");
-        $params = ['nama' => $tingkat->getNama(), 'jenis' => $tingkat->getJenis(), 'golongan' => $tingkat->getGolongan, 'pendidikan' => $tingkat->getPendidikan(), 'lamakerja' => $tingkat->getLamaKerja(), 'gaji' => $tingkat->getGajiDasar()];
+        $statement = sprintf("UPDATE tingkat_pegawai SET tingkat_nama=:nama, tingkat_jenis=:jenis, tingkat_golongan=:golongan, tingkat_pendidikan=:pendidikan, tingkat_lamakerja=:lamakerja, tingkat_gaji=:gaji WHERE id=:id");
+        $params = ['nama' => $tingkat->getNama(), 'jenis' => $tingkat->getJenis(), 'golongan' => $tingkat->getGolongan, 'pendidikan' => $tingkat->getPendidikan(), 'lamakerja' => $tingkat->getLamaKerja(), 'gaji' => $tingkat->getGajiDasar(), 'id' => $tingkat->getId()];
         
         $this->db->execute($statement, $params);
         // return true;
