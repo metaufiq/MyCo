@@ -10,6 +10,7 @@ use Index\Modules\MyCo\Application\DeleteTugas\DeleteTugasRequest;
 use Index\Modules\MyCo\Application\EditTugas\EditTugasRequest;
 use Index\Modules\MyCo\Application\CreateTingkatPegawai\CreateTingkatPegawaiRequest;
 use Index\Modules\MyCo\Application\EditTingkatPegawai\EditTingkatPegawaiRequest;
+use Index\Modules\MyCo\Application\DeleteTingkatPegawai\DeleteTingkatPegawaiRequest;
 
 class IndexController extends ControllerBase
 {
@@ -23,6 +24,7 @@ class IndexController extends ControllerBase
     protected $viewAllTingkatPegawaiService;
     protected $createTingkatPegawaiService;
     protected $editTingkatPegawaiService;
+    protected $deleteTingkatPegawaiService;
 
 
     public function initialize()
@@ -35,6 +37,7 @@ class IndexController extends ControllerBase
         $this->viewAllTingkatPegawaiService = $this->di->get('viewAllTingkatPegawaiService');
         $this->createTingkatPegawaiService = $this->di->get('createTingkatPegawaiService');
         $this->editTingkatPegawaiService = $this->di->get('editTingkatPegawaiService');
+        $this->deleteTingkatPegawaiService = $this->di->get('deleteTingkatPegawaiService');
     }
 
     public function indexAction()
@@ -143,5 +146,15 @@ class IndexController extends ControllerBase
     protected function _redirectBack()
     {
         return $this->response->redirect($_SERVER['HTTP_REFERER']);
+    }
+    public function hapusTingkatPegawaiAction()
+    {
+        $request = $this->request->get();
+        $id = $request["tingkat_id"];
+
+        $request = new DeleteTingkatPegawaiRequest($id);
+
+        $response = $this->deleteTingkatPegawaiService->handle($request);
+        return $this->_redirectBack();
     }
 }

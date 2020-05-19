@@ -9,6 +9,7 @@ use Index\Modules\MyCo\Application\EditTugas\EditTugasService;
 use Index\Modules\MyCo\Application\ViewAllTugas\ViewAllTugasService;
 use Index\Modules\MyCo\Application\ViewAllTingkatPegawai\ViewAllTingkatPegawaiService;
 use Index\Modules\MyCo\Application\CreateTingkatPegawai\CreateTingkatPegawaiService;
+use Index\Modules\MyCo\Application\DeleteTingkatPegawai\DeleteTingkatPegawaiService;
 use Index\Modules\MyCo\Application\EditTingkatPegawai\EditTingkatPegawaiService;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlManajerRepository;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlTugasRepository;
@@ -126,4 +127,8 @@ $di->set('createTingkatPegawaiService', function () use ($di) {
 
 $di->set('editTingkatPegawaiService', function() use ($di) {
     return new EditTingkatPegawaiService($di->get('tingkatPegawaiRepository'));
+});
+
+$di->set('deleteTingkatPegawaiService', function () use ($di) {
+    return new DeleteTingkatPegawaiService($di->get('tingkatPegawaiRepository'));
 });

@@ -107,7 +107,7 @@
 
                         <td>
                             <button type="button" class="btn btn-primary" id="open-modal-tingkat-ubah" data-toggle="modal" data-target="#modal-tingkat-ubah" data-idtingkat="<?php echo $tingkat->getId(); ?>" data-namatingkat="<?php echo $tingkat->getNama(); ?>" data-jenistingkat="<?php echo $tingkat->getJenis(); ?>" data-golongantingkat="<?php echo $tingkat->getGolongan(); ?>" data-pendidikantingkat="<?php echo $tingkat->getPendidikan(); ?>" data-lamakerjatingkat="<?php echo $tingkat->getLamaKerja(); ?>" data-gajitingkat="<?php echo $tingkat->getGajiDasar(); ?>"> Ubah</button>
-                            <button type="button" class="btn btn-danger">Hapus</button>
+                            <button type="button" class="btn btn-danger" id="open-modal-tingkat-hapus" data-toggle="modal" data-target="#modal-tingkat-hapus" data-idtingkat="<?php echo $tingkat->getId(); ?>">Hapus</button>
                         </td>
                      </tr>
                  <?php
@@ -314,7 +314,7 @@
 </div>
 
 
-<!-- <div class="modal fade" id="modal-tingkat-hapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-tingkat-hapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -324,8 +324,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="hapusTugas" method="post">
-                    <p>Apakah anda yakin ingin menghapus tingkat pegawai "ini" ?</p>
+                <form action="hapusTingkatPegawai" method="post">
+                    <p>Apakah anda yakin ingin menghapus tingkat pegawai ini ?</p>
                     <input type="text" id="tingkat-id" name="tingkat_id" hidden>
                     <button type="submit" class="btn btn-primary">Iya, Saya yakin</button>
                     <button data-dismiss="modal" class="btn btn-danger">Batalkan</button>
@@ -334,7 +334,7 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 <script>
     $('.input-tenggat-waktu').datetimepicker({
@@ -360,6 +360,12 @@
         $(".modal-body  #tugas-tenggat-waktu").val(tenggatWaktu);
         $(".modal-body  #tugas-status").val(status);
 
+    });
+
+    $(document).on("click", "#open-modal-tingkat-hapus", function() {
+        var id = $(this).data('idtingkat');
+
+        $(".modal-body  #tingkat-id").val(id);
     });
 
    $(document).on("click", "#open-modal-tingkat-ubah", function() {
