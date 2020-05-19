@@ -170,6 +170,20 @@ CREATE TABLE `tugas` (
 INSERT INTO `tugas` (`id`, `tugas`, `tenggat_waktu`, `status`) VALUES
 (1, 'Membuat Arsitektur DDD 12', '2020-05-18 10:55:00', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `gaji`
+--
+
+CREATE TABLE `gaji` (
+  `pegawai_id` int(255) NOT NULL,
+  `upah_laukpauk` int(255) NOT NULL,
+  `upah_renumerasi` int(255) NOT NULL,
+  `upah_kehadiran` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 --
 -- Indexes for dumped tables
 --
@@ -217,6 +231,13 @@ ALTER TABLE `tugas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `gaji`
+--
+ALTER TABLE `gaji`
+  ADD PRIMARY KEY (`pegawai_id`);
+
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -256,6 +277,7 @@ ALTER TABLE `tingkat_pegawai`
 ALTER TABLE `tugas`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

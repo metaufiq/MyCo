@@ -109,7 +109,7 @@
                         <td><?php echo $tingkat->getGolongan() ?></td>
                         <td><?php echo $tingkat->getPendidikan() ?></td>
                         <td><?php echo $tingkat->getLamaKerja() ?></td>
-                        <td><?php echo $tingkat->getGajiDasar() ?></td>
+                        <td><?php echo "Rp. ".strval($tingkat->getGajiDasar()).".00" ?></td>
 
                         <td>
                             <button type="button" class="btn btn-primary" id="open-modal-tingkat-ubah" data-toggle="modal" data-target="#modal-tingkat-ubah" data-idtingkat="<?php echo $tingkat->getId(); ?>" data-namatingkat="<?php echo $tingkat->getNama(); ?>" data-jenistingkat="<?php echo $tingkat->getJenis(); ?>" data-golongantingkat="<?php echo $tingkat->getGolongan(); ?>" data-pendidikantingkat="<?php echo $tingkat->getPendidikan(); ?>" data-lamakerjatingkat="<?php echo $tingkat->getLamaKerja(); ?>" data-gajitingkat="<?php echo $tingkat->getGajiDasar(); ?>"> Ubah</button>
