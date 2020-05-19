@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Bulan Mei 2020 pada 13.42
--- Versi server: 10.4.8-MariaDB
--- Versi PHP: 7.3.11
+-- Waktu pembuatan: 19 Bulan Mei 2020 pada 09.35
+-- Versi server: 10.1.37-MariaDB
+-- Versi PHP: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,6 +25,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `absensi`
+--
+
+CREATE TABLE `absensi` (
+  `pegawai_id` int(255) NOT NULL,
+  `tanggal` date NOT NULL,
+  `mulai_kerja` datetime NOT NULL,
+  `selesai_kerja` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `absensi`
+--
+
+INSERT INTO `absensi` (`pegawai_id`, `tanggal`, `mulai_kerja`, `selesai_kerja`) VALUES
+(2, '2020-05-18', '2020-05-18 07:30:45', '2020-05-18 17:40:42');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `manajer`
 --
 
@@ -40,7 +60,10 @@ CREATE TABLE `manajer` (
 --
 
 INSERT INTO `manajer` (`id`, `nama`, `email`, `password`) VALUES
-(1, 'Taufiq', 'taufiq1689@gmail.com', '123');
+(1, 'Taufiq', 'taufiq1689@gmail.com', '123'),
+(2, 'Cak Wi', 'cakwi@cak.com', 'cakcak'),
+(3, 'Leafy', 'leaf@y.com', 'leaf'),
+(4, 'Cak Sa', 'a@a.com', 'a');
 
 -- --------------------------------------------------------
 
@@ -106,26 +129,6 @@ INSERT INTO `status_tugas` (`id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tugas`
---
-
-CREATE TABLE `tugas` (
-  `id` int(255) NOT NULL,
-  `tugas` text NOT NULL,
-  `tenggat_waktu` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tugas`
---
-
-INSERT INTO `tugas` (`id`, `tugas`, `tenggat_waktu`, `status`) VALUES
-(1, 'Membuat Arsitektur DDD 12', '2020-05-18 10:55:00', 2);
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `tingkat_pegawai`
 --
 
@@ -140,34 +143,42 @@ CREATE TABLE `tingkat_pegawai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tugas`
+-- Dumping data untuk tabel `tingkat_pegawai`
 --
 
 INSERT INTO `tingkat_pegawai` (`id`, `tingkat_nama`, `tingkat_jenis`, `tingkat_golongan`, `tingkat_pendidikan`, `tingkat_lamakerja`, `tingkat_gaji`) VALUES
-(1, 'Staff Muda', 'Tetap', 'IIIA', 'S1', '-', 5000000);
+(1, 'Staff Muda', 'Tetap', '', 'S1', '-', 5000000),
+(5, 'Staff Madya', 'Tetap', 'III B', 'S1', '4 tahun', 6500000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `absensi`
+-- Struktur dari tabel `tugas`
 --
 
-CREATE TABLE `absensi` (
-  `pegawai_id` int(255) NOT NULL,
-  `tanggal` date NOT NULL,
-  `mulai_kerja` datetime NOT NULL,
-  `selesai_kerja` datetime NOT NULL
+CREATE TABLE `tugas` (
+  `id` int(255) NOT NULL,
+  `tugas` text NOT NULL,
+  `tenggat_waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `absensi`
+-- Dumping data untuk tabel `tugas`
 --
 
-INSERT INTO `absensi` (`pegawai_id`, `tanggal`, `mulai_kerja`, `selesai_kerja`) VALUES (2, '2020-05-18', '2020-05-18 07:30:45', '2020-05-18 17:40:42');
+INSERT INTO `tugas` (`id`, `tugas`, `tenggat_waktu`, `status`) VALUES
+(1, 'Membuat Arsitektur DDD 12', '2020-05-18 10:55:00', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `absensi`
+--
+ALTER TABLE `absensi`
+  ADD PRIMARY KEY (`pegawai_id`,`tanggal`);
 
 --
 -- Indeks untuk tabel `manajer`
@@ -194,21 +205,16 @@ ALTER TABLE `status_tugas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tugas`
---
-ALTER TABLE `tugas`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indeks untuk tabel `tingkat_pegawai`
 --
 ALTER TABLE `tingkat_pegawai`
   ADD PRIMARY KEY (`id`);
 
--- Indeks untuk tabel `absensi`
 --
-ALTER TABLE `absensi`
-  ADD PRIMARY KEY (`pegawai_id`, `tanggal`);
+-- Indeks untuk tabel `tugas`
+--
+ALTER TABLE `tugas`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -218,7 +224,7 @@ ALTER TABLE `absensi`
 -- AUTO_INCREMENT untuk tabel `manajer`
 --
 ALTER TABLE `manajer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `pegawai`
@@ -236,22 +242,21 @@ ALTER TABLE `penugasan`
 -- AUTO_INCREMENT untuk tabel `status_tugas`
 --
 ALTER TABLE `status_tugas`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT untuk tabel `tugas`
---
-ALTER TABLE `tugas`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tingkat_pegawai`
 --
 ALTER TABLE `tingkat_pegawai`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `tugas`
+--
+ALTER TABLE `tugas`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
