@@ -26,6 +26,12 @@
     <li class="nav-item">
         <a class="nav-link" id="pills-tingkat-tab" data-toggle="pill" href="#pills-tingkat" role="tab" aria-controls="pills-tingkat" aria-selected="false">Tingkat Pegawai</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-absensi-tab" data-toggle="pill" href="#pills-absensi" role="tab" aria-controls="pills-absensi" aria-selected="false">Absensi Pegawai</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-gaji-tab" data-toggle="pill" href="#pills-gaji" role="tab" aria-controls="pills-gaji" aria-selected="false">Gaji Pegawai</a>
+    </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-pegawai" role="tabpanel" aria-labelledby="pills-pegawai-tab">...</div>
@@ -121,6 +127,76 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tingkat-tambah">Tambah Tingkat Pegawai</button>
         </div>
     </div>
+
+    <div class="tab-pane fade" id="pills-absensi" role="tabpanel" aria-labelledby="pills-absensi-tab" style="padding-top:50px">
+        <table class="table" id="absensi-tabel">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Nama Pegawai</th>
+                    <th scope="col">Absensi Masuk</th>
+                    <th scope="col">Absensi Pulang</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+                $i = 1;
+                ?>
+                    <tr>
+                    <th scope="row"><?php echo $i ?></th>
+                        <td><?php  ?></td>
+                        <td><?php  ?></td>
+                        <td><?php  ?></td>
+                        <td><?php  ?></td>
+                        <td><?php  ?></td>
+
+                        <td>
+                        </td>
+                     </tr>
+                 <?php
+                    $i++;
+                ?>
+            </tbody>
+        </table>
+
+</div>
+
+<div class="tab-pane fade" id="pills-gaji" role="tabpanel" aria-labelledby="pills-gaji-tab" style="padding-top:50px">
+        <table class="table" id="gaji-tabel">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama Pegawai</th>
+                    <th scope="col">Gaji Dasar</th>
+                    <th scope="col">Upah Lauk Pauk</th>
+                    <th scope="col">Upah Kehadiran</th>
+                    <th scope="col">Upah Renumerasi</th>
+                    <th scope="col">Total Gaji</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+                $i = 1;
+                ?>
+                    <tr>
+                    <th scope="row"><?php echo $i ?></th>
+                        <td><?php  ?></td>
+                        <td><?php  ?></td>
+                        <td><?php  ?></td>
+                        <td><?php  ?></td>
+                        <td><?php  ?></td>
+
+                        <td>
+                        </td>
+                     </tr>
+                 <?php
+                    $i++;
+                ?>
+            </tbody>
+        </table>
+
 </div>
 
 <!-- Modal -->
