@@ -73,17 +73,19 @@ INSERT INTO `manajer` (`id`, `nama`, `email`, `password`) VALUES
 
 CREATE TABLE `pegawai` (
   `id` int(255) NOT NULL,
-  `nama` varchar(255) NOT NULL
+  `nama` varchar(255) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `no_hp` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `pegawai`
 --
 
-INSERT INTO `pegawai` (`id`, `nama`) VALUES
-(1, 'Muh Taufiqulsa`di'),
-(2, 'Rifqi Mukti'),
-(3, 'Bayu');
+INSERT INTO `pegawai` (`id`, `nama`, `alamat`, `no_hp`) VALUES
+(1, 'Muh Taufiqulsa`di', 'Palu', '081234567890'),
+(2, 'Rifqi Mukti', 'Jember', '081234567891'),
+(3, 'Bayu', 'Sidoarjo', '081234567892');
 
 -- --------------------------------------------------------
 
@@ -177,6 +179,7 @@ INSERT INTO `tugas` (`id`, `tugas`, `tenggat_waktu`, `status`) VALUES
 --
 
 CREATE TABLE `gaji` (
+  `id_gaji` int(255) NOT NULL,
   `pegawai_id` int(255) NOT NULL,
   `upah_laukpauk` int(255) NOT NULL,
   `upah_renumerasi` int(255) NOT NULL,
@@ -204,7 +207,8 @@ ALTER TABLE `manajer`
 -- Indeks untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Indeks untuk tabel `penugasan`
@@ -234,7 +238,9 @@ ALTER TABLE `tugas`
 -- Indeks untuk tabel `gaji`
 --
 ALTER TABLE `gaji`
-  ADD PRIMARY KEY (`pegawai_id`);
+  ADD PRIMARY KEY (`id_gaji`),
+  ADD KEY `pegawai_id` (`pegawai_id`),
+  ADD CONSTRAINT `pegawai_id` FOREIGN KEY (`pegawai_id`) REFERENCES `pegawai` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 --
@@ -246,12 +252,6 @@ ALTER TABLE `gaji`
 --
 ALTER TABLE `manajer`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT untuk tabel `pegawai`
---
-ALTER TABLE `pegawai`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `penugasan`
