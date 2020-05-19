@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Index\Modules\MyCo\Presentation\Controllers\Web;
 
+use Phalcon\Session\Manager;
+use Phalcon\Session\Adapter\Stream;
+
 use Index\Modules\MyCo\Application\CreateManajer\CreateManajerRequest;
 use Index\Modules\MyCo\Application\CreateTugas\CreateTugasRequest;
 use Index\Modules\MyCo\Application\DeleteTugas\DeleteTugasRequest;
@@ -25,7 +28,7 @@ class IndexController extends ControllerBase
     protected $createTingkatPegawaiService;
     protected $editTingkatPegawaiService;
     protected $deleteTingkatPegawaiService;
-
+    
 
     public function initialize()
     {
@@ -55,11 +58,22 @@ class IndexController extends ControllerBase
         $request = new CreateManajerRequest($nama, $email, $password);
         $response = $this->createManajerService->handle($request);
 
+        $this->session->set('userId', $email);
+
         $this->response->redirect('index/beranda');
+    }
+
+    public function keluarAction()
+    {
+        $this->session->remove('userId');
+
+        $this->response->redirect('/index');
     }
 
     public function berandaAction()
     {
+        if(!$this->session->has('userId')) $this->response->redirect('index/');
+
         $response = $this->viewAllTugasService->handle();
         $response2 = $this->viewAllTingkatPegawaiService->handle();
 

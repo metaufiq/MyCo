@@ -10,7 +10,9 @@
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/index">Keluar</a>
+                <form action="keluar">
+                    <button type="submit" class="btn btn-danger">Keluar</button>
+                </form>
             </li>
         </ul>
     </div>
@@ -128,12 +130,12 @@
         </div>
     </div>
 
-    <div class="tab-pane fade" id="pills-absensi" role="tabpanel" aria-labelledby="pills-absensi-tab" style="padding-top:10px">
-        <form action="pilihPegawaiAbsensi">
+    <div class="tab-pane fade" id="pills-absensi" role="tabpanel" aria-labelledby="pills-absensi-tab" style="padding-top:0px">
+        <form action="pilihAbsensiPegawai">
             <div class="form-group">
                 <input type="text" id="pegawai-id" name="pegawai_id" hidden>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding-right:700px">
                 <label for="exampleFormControlSelect1">Pilih Pegawai</label>
                 <select class="form-control" id="pegawai-nama" name="pegawai_nama">
                     <option value="1">Ditugaskan</option>
@@ -173,12 +175,12 @@
         </table>
     </div>
 
-    <div class="tab-pane fade" id="pills-gaji" role="tabpanel" aria-labelledby="pills-gaji-tab" style="padding-top:10px">
-        <form action="pilihPegawaiGaji">
+    <div class="tab-pane fade" id="pills-gaji" role="tabpanel" aria-labelledby="pills-gaji-tab" style="padding-top:0px">
+        <form action="pilihGajiPegawai">
             <div class="form-group">
                 <input type="text" id="pegawai-id" name="pegawai_id" hidden>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding-right:700px">
                 <label for="exampleFormControlSelect1">Pilih Pegawai</label>
                 <select class="form-control" id="pegawai-nama" name="pegawai_nama">
                     <option value="1">Ditugaskan</option>
