@@ -29,18 +29,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `absensi` (
+  `id` int(255) NOT NULL,
   `pegawai_id` int(255) NOT NULL,
   `tanggal` date NOT NULL,
-  `mulai_kerja` datetime NOT NULL,
-  `selesai_kerja` datetime NOT NULL
+  `mulai_kerja` datetime,
+  `selesai_kerja` datetime
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `absensi`
 --
 
-INSERT INTO `absensi` (`pegawai_id`, `tanggal`, `mulai_kerja`, `selesai_kerja`) VALUES
-(2, '2020-05-18', '2020-05-18 07:30:45', '2020-05-18 17:40:42');
+INSERT INTO `absensi` (`id`, `pegawai_id`, `tanggal`, `mulai_kerja`, `selesai_kerja`) VALUES
+(1, 2, '2020-05-18', '2020-05-18 07:30:45', '2020-05-18 17:40:42');
 
 -- --------------------------------------------------------
 
@@ -183,7 +184,8 @@ CREATE TABLE `gaji` (
   `pegawai_id` int(255) NOT NULL,
   `upah_laukpauk` int(255) NOT NULL,
   `upah_renumerasi` int(255) NOT NULL,
-  `upah_kehadiran` int(255) NOT NULL
+  `upah_kehadiran` int(255) NOT NULL,
+  `bulan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -195,7 +197,7 @@ CREATE TABLE `gaji` (
 -- Indeks untuk tabel `absensi`
 --
 ALTER TABLE `absensi`
-  ADD PRIMARY KEY (`pegawai_id`,`tanggal`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `manajer`
@@ -278,6 +280,17 @@ ALTER TABLE `tugas`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
+--
+-- AUTO_INCREMENT untuk tabel `absensi`
+--
+ALTER TABLE `absensi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `manajer`
+--
+ALTER TABLE `gaji`
+  MODIFY `id_gaji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

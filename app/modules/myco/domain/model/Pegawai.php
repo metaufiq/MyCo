@@ -2,14 +2,14 @@
 
 namespace Index\Modules\MyCo\Domain\Model;
 
-
-
 class Pegawai {
     private $id;
     private $nama;
     private $alamat;
     private $no_hp;
-
+    // private $absensi;
+    // private $gaji;
+    // private $tingkat_pegawai;
 
     public function __construct($id, $nama, $alamat, $no_hp)
     {
@@ -17,6 +17,7 @@ class Pegawai {
         $this->nama = $nama;
         $this->alamat = $alamat;
         $this->no_hp = $no_hp;
+        // $this->absensi = absensi;
     }
 
     public function getId(){
@@ -34,5 +35,17 @@ class Pegawai {
     public function getNoHp(){
         return $this->no_hp;
     }
+
+    // public function getGaji(){
+    //     return $this->gaji;
+    // }
+
+    // public function getAbsensi(){
+    //     return $this->absensi;
+    // }
+
+    // public function getTingkatPegawai(){
+    //     return $this->tingkat_pegawai;
+    // }
 
 }

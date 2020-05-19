@@ -48,11 +48,9 @@ class IndexController extends ControllerBase
     {
         $request = $this->request->get();
 
-
         $nama = $request['manajer_nama'];
         $email = $request['manajer_email'];
         $password = $request['manajer_password'];
-
 
         $request = new CreateManajerRequest($nama, $email, $password);
         $response = $this->createManajerService->handle($request);
