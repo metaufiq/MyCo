@@ -57,6 +57,33 @@ class IndexController extends ControllerBase
     {
     }
 
+    public function masukAction()
+    {
+        if ($this->session->has('userId')) {
+            $this->response->redirect('index/beranda');
+        }
+
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+
+        $user = Manajer::findFirst([
+            "conditions" => "email = ?0 AND password = ?1",
+            "bind" == [
+                0 => $email,
+                1 => $password
+            ]
+        ]);
+
+        if (false === $user) {
+            $this->flashSession->error("Username atau password salah");
+        } else {
+            $this->session->set("userId", $user->id);
+        }
+
+        $this->response->redirect('index/beranda');
+
+    }
+
     public function daftarAction()
     {
         $request = $this->request->get();
