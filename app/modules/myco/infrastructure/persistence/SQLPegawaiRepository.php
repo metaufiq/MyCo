@@ -55,7 +55,9 @@ class SqlPegawaiRepository implements PegawaiRepository
     public function getGajiPegawai() 
     {
         $statement = sprintf("SELECT g.bulan as bulan, g.upah_laukpauk as upah_laukpauk, g.upah_renumerasi as upah_renum,
-        g.upah_kehadiran as upah_hadir, p.nama as nama FROM gaji g INNER JOIN pegawai p ON g.pegawai_id = p.id");
+        g.upah_kehadiran as upah_hadir, p.nama as nama, tp.tingkat_gaji as gaji_dasar FROM gaji g 
+        INNER JOIN pegawai p ON g.pegawai_id = p.id
+        INNER JOIN tingkat_pegawai tp ON tp.id = p.t_pegawai_id");
         return $this->db->query($statement)
         ->fetchAll(PDO::FETCH_ASSOC);
     }
