@@ -16,6 +16,8 @@ use Index\Modules\MyCo\Application\ViewAllPegawai\ViewAllPegawaiService;
 use Index\Modules\MyCo\Application\EditPegawai\EditPegawaiService;
 use Index\Modules\MyCo\Application\DeletePegawai\DeletePegawaiService;
 use Index\Modules\MyCo\Application\ViewGajiPegawai\ViewGajiPegawaiService;
+use Index\Modules\MyCo\Application\ViewAbsensiPegawai\ViewAbsensiPegawaiService;
+use Index\Modules\MyCo\Application\EditAbsensiPegawai\EditAbsensiPegawaiService;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlManajerRepository;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlTugasRepository;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlTingkatPegawaiRepository;
@@ -161,4 +163,12 @@ $di->set('deletePegawaiService', function () use ($di) {
 
 $di->set('viewGajiPegawaiService', function () use ($di) {
     return new ViewGajiPegawaiService($di->get('pegawaiRepository'));
+});
+
+$di->set('viewAbsensiPegawaiService', function () use ($di) {
+    return new ViewAbsensiPegawaiService($di->get('pegawaiRepository'));
+});
+
+$di->set('editAbsensiPegawaiService', function() use ($di) {
+    return new EditAbsensiPegawaiService($di->get('pegawaiRepository'));
 });

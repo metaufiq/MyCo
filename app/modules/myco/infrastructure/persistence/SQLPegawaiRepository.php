@@ -59,4 +59,16 @@ class SqlPegawaiRepository implements PegawaiRepository
         return $this->db->query($statement)
         ->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    public function getAbsensiPegawai() 
+    {
+        $statement = sprintf("SELECT a.tanggal as tanggal, a.mulai_kerja as masuk, a.selesai_kerja as selesai, p.nama as nama, p.id as pegawai_id FROM absensi a INNER JOIN pegawai p ON a.pegawai_id = p.id");
+        return $this->db->query($statement)
+        ->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function editAbsensi(Pegawai $pegawai) 
+    {
+
+    }
 }

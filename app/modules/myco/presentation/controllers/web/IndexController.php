@@ -14,6 +14,7 @@ use Index\Modules\MyCo\Application\DeleteTingkatPegawai\DeleteTingkatPegawaiRequ
 use Index\Modules\MyCo\Application\CreatePegawai\CreatePegawaiRequest;
 use Index\Modules\MyCo\Application\EditPegawai\EditPegawaiRequest;
 use Index\Modules\MyCo\Application\DeletePegawai\DeletePegawaiRequest;
+use Index\Modules\MyCo\Application\EditAbsensiPegawai\EditAbsensiPegawaiRequest;
 
 class IndexController extends ControllerBase
 {
@@ -33,6 +34,8 @@ class IndexController extends ControllerBase
     protected $editPegawaiService;
     protected $deletePegawaiService;
     protected $viewGajiPegawaiService;
+    protected $viewAbsensiPegawaiService;
+    protected $editAbsensiPegawaiService;
 
     public function initialize()
     {
@@ -50,6 +53,9 @@ class IndexController extends ControllerBase
         $this->editPegawaiService = $this->di->get('editPegawaiService');
         $this->deletePegawaiService = $this->di->get('deletePegawaiService');
         $this->viewGajiPegawaiService = $this->di->get('viewGajiPegawaiService');
+        $this->viewAbsensiPegawaiService = $this->di->get('viewAbsensiPegawaiService');
+        $this->editAbsensiPegawaiService = $this->di->get('editAbsensiPegawaiService');
+
     }
 
     public function indexAction()
@@ -114,12 +120,14 @@ class IndexController extends ControllerBase
         $response2 = $this->viewAllTingkatPegawaiService->handle();
         $response3 = $this->viewAllPegawaiService->handle();
         $response4 = $this->viewGajiPegawaiService->handle();
+        $response5 = $this->viewAbsensiPegawaiService->handle();
 
         $this->view->setVars(array(
             'allTugas' => $response->get(),
             'allTingkat' => $response2->get(),
             'allPegawai' => $response3->get(),
-            'gajiPegawai' => $response4->get()
+            'gajiPegawai' => $response4->get(),
+            'absensiPegawai' => $response5->get()
         ));
     }
 
@@ -247,6 +255,21 @@ class IndexController extends ControllerBase
         $request = new DeletePegawaiRequest($id);
 
         $response = $this->deletePegawaiService->handle($request);
+        return $this->_redirectBack();
+    }
+    public function ubahAbsensiAction()
+    {
+        $request = $this->request->get();
+        $pegawai_id = $request["pegawai_id"];
+        $tugas = $request["tugas_nama"];
+        $pegawai = isset($request->tugas_pegawai) ? $request["tugas_pegawai"] : [1, 2, 3];
+        $tenggatWaktu = $request["tugas_tenggat_waktu"] . ":00";
+        $status = $request["tugas_status"];
+
+        $request = new EditTugasRequest($id, $tugas, $pegawai, $tenggatWaktu, $status);
+        $response = $this->editTugasService->handle($request);
+        
+
         return $this->_redirectBack();
     }
 }

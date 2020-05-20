@@ -12,5 +12,7 @@ interface PegawaiRepository{
 
     public function getGajiPegawai();
 
-    // public function getAbsensiPegawai();
+    public function getAbsensiPegawai();
+
+    public function editAbsensi(Pegawai $pegawai);
 }
