@@ -36,7 +36,44 @@
     </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
-    <div class="tab-pane fade show active" id="pills-pegawai" role="tabpanel" aria-labelledby="pills-pegawai-tab">...</div>
+    <div class="tab-pane fade show active" id="pills-pegawai" role="tabpanel" aria-labelledby="pills-pegawai-tab">
+    <table class="table" id="tugas-tabel">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Tingkat Pegawai</th>
+                    <th scope="col">Alamat</th>
+                    <th scope="col">No. HP</th>
+                    <!-- <th scope="col">Aksi</th> -->
+                </tr>
+            </thead>
+            <tbody>
+
+                <?php
+                $i = 1;
+                foreach ($allPegawai as $pegawai) {
+                ?>
+                    <tr>
+                        <th scope="row"><?php echo $i ?></th>
+                        <td><?php echo $pegawai->getNama() ?></td>
+                        <td><?php echo $pegawai->getTingkatPegawai()->getNama() ?></td>
+                        <td><?php echo $pegawai->getAlamat() ?></td>
+                        <td><?php echo $pegawai->getNoHp() ?></td>
+
+                    </tr>
+                <?php
+                    $i++;
+                }
+                ?>
+
+            </tbody>
+        </table>
+
+        <!-- <div class="row justify-content-center align-items-center">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tugas-tambah">Tambah Tugas</button>
+        </div> -->
+    </div>
     <div class="tab-pane fade" id="pills-tugas" role="tabpanel" aria-labelledby="pills-tugas-tab" style="padding-top:50px">
         <table class="table" id="tugas-tabel">
             <thead>

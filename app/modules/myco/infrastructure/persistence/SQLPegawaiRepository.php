@@ -27,7 +27,7 @@ class SqlPegawaiRepository implements PegawaiRepository
 
     public function getAll()
     {
-        $statement = sprintf("SELECT p.nama as nama,p.alamat as alamat, p.no_hp as no_hp, tp.id as tingkat_pegawai_id FROM pegawai p 
+        $statement = sprintf("SELECT p.nama as nama,p.alamat as alamat, p.no_hp as no_hp, tp.tingkat_nama as tingkat_nama FROM pegawai p 
         INNER JOIN tingkat_pegawai tp ON p.t_pegawai_id = tp.id");
 
         return $this->db->query($statement)
