@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Index\Modules\MyCo\Presentation\Controllers\Web;
 
-use Phalcon\Session\Manager;
-use Phalcon\Session\Adapter\Stream;
-
 use Index\Modules\MyCo\Application\CreateManajer\CreateManajerRequest;
 use Index\Modules\MyCo\Application\CreateTugas\CreateTugasRequest;
 use Index\Modules\MyCo\Application\DeleteTugas\DeleteTugasRequest;
@@ -35,6 +32,7 @@ class IndexController extends ControllerBase
     protected $createPegawaiService;
     protected $editPegawaiService;
     protected $deletePegawaiService;
+    protected $viewGajiPegawaiService;
 
     public function initialize()
     {
@@ -51,6 +49,7 @@ class IndexController extends ControllerBase
         $this->createPegawaiService = $this->di->get('createPegawaiService');
         $this->editPegawaiService = $this->di->get('editPegawaiService');
         $this->deletePegawaiService = $this->di->get('deletePegawaiService');
+        $this->viewGajiPegawaiService = $this->di->get('viewGajiPegawaiService');
     }
 
     public function indexAction()
@@ -114,11 +113,13 @@ class IndexController extends ControllerBase
         $response = $this->viewAllTugasService->handle();
         $response2 = $this->viewAllTingkatPegawaiService->handle();
         $response3 = $this->viewAllPegawaiService->handle();
+        $response4 = $this->viewGajiPegawaiService->handle();
 
         $this->view->setVars(array(
             'allTugas' => $response->get(),
             'allTingkat' => $response2->get(),
-            'allPegawai' => $response3->get()
+            'allPegawai' => $response3->get(),
+            'gajiPegawai' => $response4->get()
         ));
     }
 

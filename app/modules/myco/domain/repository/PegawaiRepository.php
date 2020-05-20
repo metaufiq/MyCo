@@ -9,4 +9,8 @@ interface PegawaiRepository{
     public function delete(Pegawai $pegawai);
 
     public function edit(Pegawai $pegawai);
+
+    public function getGajiPegawai();
+
+    // public function getAbsensiPegawai();
 }

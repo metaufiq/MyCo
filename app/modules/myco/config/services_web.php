@@ -15,6 +15,7 @@ use Index\Modules\MyCo\Application\EditTingkatPegawai\EditTingkatPegawaiService;
 use Index\Modules\MyCo\Application\ViewAllPegawai\ViewAllPegawaiService;
 use Index\Modules\MyCo\Application\EditPegawai\EditPegawaiService;
 use Index\Modules\MyCo\Application\DeletePegawai\DeletePegawaiService;
+use Index\Modules\MyCo\Application\ViewGajiPegawai\ViewGajiPegawaiService;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlManajerRepository;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlTugasRepository;
 use Index\Modules\MyCo\Infrastructure\Persistence\SqlTingkatPegawaiRepository;
@@ -156,4 +157,8 @@ $di->set('editPegawaiService', function() use ($di) {
 
 $di->set('deletePegawaiService', function () use ($di) {
     return new DeletePegawaiService($di->get('pegawaiRepository'));
+});
+
+$di->set('viewGajiPegawaiService', function () use ($di) {
+    return new ViewGajiPegawaiService($di->get('pegawaiRepository'));
 });
