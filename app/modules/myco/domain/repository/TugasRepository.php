@@ -6,6 +6,8 @@ interface TugasRepository{
 
     public function getAll();
 
+    public function getById();
+
     public function delete(Tugas $tugas);
 
     public function edit(Tugas $tugas);

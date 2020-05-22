@@ -44,6 +44,34 @@ class SqlTugasRepository implements TugasRepository
             ->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getById(Tugas $tugas)
+    {
+        $statement = sprintf("SELECT * FROM Tugas WHERE id= :id");
+        $params = ['id' => $tugas->getId()];
+
+        $tugasFromQuery = $this->db->query($statement)
+            ->fetchAll(PDO::FETCH_ASSOC);
+
+        $statement = sprintf("SELECT pegawai FROM Penugasan WHERE tugas=:tugas");
+        $params = ['tugas' => $tugas->getId()];
+        $pegawaiFromDB = $this->db->query($statement, $params)
+            ->fetchAll(PDO::FETCH_ASSOC);
+
+        $temp = array();
+        foreach ($pegawaiFromDB as $pegawai) {
+            array_push($temp, $pegawai['pegawai']);
+        }
+
+
+        return new Tugas(
+            $tugasFromQuery[0]['id'],
+            $tugasFromQuery[0]['nama'],
+            null,
+            null,
+            $tugasFromQuery[0]['status']
+        );
+    }
+
     public function delete(Tugas $tugas)
     {
         $statement = sprintf("DELETE FROM Tugas WHERE id= :id");
