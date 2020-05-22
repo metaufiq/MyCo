@@ -115,7 +115,7 @@ class IndexController extends ControllerBase
 
     public function berandaAction()
     {
-        if(!$this->session->has('userId')) $this->response->redirect('index/');
+        // if(!$this->session->has('userId')) $this->response->redirect('index/');
 
         $response = $this->viewAllTugasService->handle();
         $response2 = $this->viewAllTingkatPegawaiService->handle();
