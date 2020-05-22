@@ -15,6 +15,7 @@ use Index\Modules\MyCo\Application\CreatePegawai\CreatePegawaiRequest;
 use Index\Modules\MyCo\Application\EditPegawai\EditPegawaiRequest;
 use Index\Modules\MyCo\Application\DeletePegawai\DeletePegawaiRequest;
 use Index\Modules\MyCo\Application\EditAbsensiPegawai\EditAbsensiPegawaiRequest;
+use Index\Modules\MyCo\Domain\Model\Manajer;
 
 class IndexController extends ControllerBase
 {
