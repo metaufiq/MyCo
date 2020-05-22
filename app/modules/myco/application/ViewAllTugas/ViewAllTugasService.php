@@ -19,7 +19,7 @@ class ViewAllTugasService{
     public function handle()
     {
         $allTugas = $this->tugasRepository->getAll();
-        
+        die(json_encode($allTugas));
         return new TugasMapper($allTugas);
     }
 }

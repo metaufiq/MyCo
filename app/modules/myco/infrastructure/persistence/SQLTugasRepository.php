@@ -35,10 +35,7 @@ class SqlTugasRepository implements TugasRepository
 
     public function getAll()
     {
-        $statement = sprintf("SELECT p.nama as nama_pegawai,p.id as id_pegawai,t.tugas as nama_tugas, t.id as id_tugas,t.tenggat_waktu,st.status as nama_status,st.id as id_status FROM penugasan pn 
-        INNER JOIN tugas t ON pn.tugas = t.id 
-        INNER JOIN pegawai p ON pn.pegawai = p.id
-        INNER JOIN status_tugas st ON t.status = st.id");
+        $statement = sprintf("SELECT * FROM Tugas");
 
         return $this->db->query($statement)
             ->fetchAll(PDO::FETCH_ASSOC);
