@@ -37,7 +37,7 @@
 </ul>
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-pegawai" role="tabpanel" aria-labelledby="pills-pegawai-tab">
-    <table class="table" id="tugas-tabel">
+        <table class="table" id="pegawai-tabel">
             <thead>
                 <tr>
                     <th scope="col">No</th>
@@ -94,21 +94,21 @@
                 ?>
                     <tr>
                         <th scope="row"><?php echo $i ?></th>
-                        <td><?php echo $tugas->getNama() ?></td>
-                        <td><?php foreach ($tugas->getPegawai() as $pegawai) {
+                        <td><?php echo $tugas['tugas'] ?></td>
+                        <td><?php foreach ($tugas['pegawai'] as $pegawai) {
 
-                                echo $pegawai->getNama();
-                                if ($pegawai != $tugas->getPegawai()[count($tugas->getPegawai()) - 1]) {
+                                echo $pegawai['nama'];
+                                if ($pegawai != $tugas['pegawai'][count($tugas['pegawai']) - 1]) {
                                     echo ", ";
                                 }
                             } ?></td>
-                        <td><?php echo $tugas->getTenggatWaktu() ?></td>
-                        <td><?php echo $tugas->getStatus()['nama'] ?></td>
-                        <td>
-                            <button type="button" class="btn btn-primary" id="open-modal-tugas-ubah" data-toggle="modal" data-target="#modal-tugas-ubah" data-id="<?php echo $tugas->getId(); ?>" data-tugas="<?php echo $tugas->getNama(); ?>" data-tenggatwaktu="<?php echo $tugas->getTenggatWaktu(); ?>" data-status="<?php echo $tugas->getStatus()['id']; ?>">Ubah Tugas</button>
-                            <button type="button" class="btn btn-danger" id="open-modal-tugas-hapus" data-toggle="modal" data-target="#modal-tugas-hapus" data-id="<?php echo $tugas->getId(); ?>">Hapus Tugas</button>
-                        </td>
+                        <td><?php echo $tugas['tenggat_waktu'] ?></td>
+                        <td><?php echo $tugas['status']['status'] ?></td>
 
+                        <td>
+                            <button type="button" class="btn btn-primary" id="open-modal-tugas-ubah" data-toggle="modal" data-target="#modal-tugas-ubah" data-id="<?php echo $tugas['id']; ?>" data-tugas="<?php echo $tugas['tugas']; ?>" data-tenggatwaktu="<?php echo $tugas['tenggat_waktu']; ?>" data-status="<?php echo $tugas['status']['id']; ?>">Ubah Tugas</button>
+                            <button type="button" class="btn btn-danger" id="open-modal-tugas-hapus" data-toggle="modal" data-target="#modal-tugas-hapus" data-id="<?php echo $tugas['id']; ?>">Hapus Tugas</button>
+                        </td>
                     </tr>
                 <?php
                     $i++;
@@ -137,25 +137,25 @@
                 </tr>
             </thead>
             <tbody>
-            <?php
+                <?php
                 $i = 1;
                 foreach ($allTingkat as $tingkat) {
                 ?>
                     <tr>
-                    <th scope="row"><?php echo $i ?></th>
+                        <th scope="row"><?php echo $i ?></th>
                         <td><?php echo $tingkat->getNama() ?></td>
                         <td><?php echo $tingkat->getJenis() ?></td>
                         <td><?php echo $tingkat->getGolongan() ?></td>
                         <td><?php echo $tingkat->getPendidikan() ?></td>
                         <td><?php echo $tingkat->getLamaKerja() ?></td>
-                        <td><?php echo "Rp. ".strval($tingkat->getGajiDasar()).".00" ?></td>
+                        <td><?php echo "Rp. " . strval($tingkat->getGajiDasar()) . ".00" ?></td>
 
                         <td>
                             <button type="button" class="btn btn-primary" id="open-modal-tingkat-ubah" data-toggle="modal" data-target="#modal-tingkat-ubah" data-idtingkat="<?php echo $tingkat->getId(); ?>" data-namatingkat="<?php echo $tingkat->getNama(); ?>" data-jenistingkat="<?php echo $tingkat->getJenis(); ?>" data-golongantingkat="<?php echo $tingkat->getGolongan(); ?>" data-pendidikantingkat="<?php echo $tingkat->getPendidikan(); ?>" data-lamakerjatingkat="<?php echo $tingkat->getLamaKerja(); ?>" data-gajitingkat="<?php echo $tingkat->getGajiDasar(); ?>"> Ubah</button>
                             <button type="button" class="btn btn-danger" id="open-modal-tingkat-hapus" data-toggle="modal" data-target="#modal-tingkat-hapus" data-idtingkat="<?php echo $tingkat->getId(); ?>">Hapus</button>
                         </td>
-                     </tr>
-                 <?php
+                    </tr>
+                <?php
                     $i++;
                 }
                 ?>
@@ -181,12 +181,12 @@
                 </tr>
             </thead>
             <tbody>
-            <?php
+                <?php
                 $i = 1;
-                foreach($absensiPegawai as $absensi) {
+                foreach ($absensiPegawai as $absensi) {
                 ?>
                     <tr>
-                    <th scope="row"><?php echo $i ?></th>
+                        <th scope="row"><?php echo $i ?></th>
                         <td><?php echo $absensi->getNama() ?></td>
                         <td><?php echo $absensi->getAbsensi()->getTanggal() ?></td>
                         <td><?php echo $absensi->getAbsensi()->getMulaiKerja() ?></td>
@@ -194,10 +194,10 @@
                         <td><?php echo $absensi->getAbsensi()->getStatus() ?></td>
                         <td>
                         </td>
-                     </tr>
-                 <?php
+                    </tr>
+                <?php
                     $i++;
-                    }
+                }
                 ?>
             </tbody>
         </table>
@@ -218,25 +218,25 @@
                 </tr>
             </thead>
             <tbody>
-            <?php
+                <?php
                 $i = 1;
-                foreach($gajiPegawai as $gp) {
+                foreach ($gajiPegawai as $gp) {
                 ?>
                     <tr>
-                    <th scope="row"><?php echo $i ?></th>
-                    <td><?php echo $gp->getNama() ?></td>
+                        <th scope="row"><?php echo $i ?></th>
+                        <td><?php echo $gp->getNama() ?></td>
                         <td><?php echo $gp->getGaji()->getBulan() ?></td>
                         <td><?php echo $gp->getTingkatPegawai()->getGajiDasar() ?></td>
                         <td><?php echo $gp->getGaji()->getUpahLaukPauk() ?></td>
-                        <td><?php echo $gp->getGaji()->getUpahKehadiran()?></td>
+                        <td><?php echo $gp->getGaji()->getUpahKehadiran() ?></td>
                         <td><?php echo $gp->getGaji()->getUpahRenumerasi() ?></td>
 
                         <td>
                         </td>
-                     </tr>
-                 <?php
+                    </tr>
+                <?php
                     $i++;
-                    }
+                }
                 ?>
             </tbody>
         </table>
@@ -489,7 +489,7 @@
         $(".modal-body  #tingkat-id").val(id);
     });
 
-   $(document).on("click", "#open-modal-tingkat-ubah", function() {
+    $(document).on("click", "#open-modal-tingkat-ubah", function() {
         var id = $(this).data('idtingkat');
         var nama = $(this).data('namatingkat');
         var jenis = $(this).data('jenistingkat');

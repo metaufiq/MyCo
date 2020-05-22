@@ -35,7 +35,7 @@ class SqlTugasRepository implements TugasRepository
 
     public function getAll()
     {
-        $statement = sprintf("SELECT * FROM Tugas");
+        $statement = sprintf("SELECT t.id, t.tugas, t.tenggat_waktu, st.id as status_id, st.status FROM Tugas t INNER JOIN status_tugas st ON st.id = t.status");
 
         return $this->db->query($statement)
             ->fetchAll(PDO::FETCH_ASSOC);
@@ -43,7 +43,7 @@ class SqlTugasRepository implements TugasRepository
 
     public function getById(Tugas $tugas)
     {
-        $statement = sprintf("SELECT * FROM Tugas WHERE id= :id");
+        $statement = sprintf("SELECT t.id, t.tugas, t.tenggat_waktu, st.status FROM Tugas t INNER JOIN status_tugas st ON st.id = t.status WHERE id= :id");
         $params = ['id' => $tugas->getId()];
 
         $tugasFromQuery = $this->db->query($statement)

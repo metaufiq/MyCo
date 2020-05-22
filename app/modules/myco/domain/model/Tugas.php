@@ -3,7 +3,7 @@ namespace Index\Modules\MyCo\Domain\Model;
 
 class Tugas
 {
-    private $id;
+    private TugasId $id;
     private $nama;
     private $pegawai;
     private $tenggatWaktu;

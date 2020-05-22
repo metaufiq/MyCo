@@ -18,7 +18,6 @@ class ViewAllPegawaiService{
     public function handle()
     {
         $allPegawai = $this->pegawaiRepository->getAll();
-
         return new PegawaiMapper($allPegawai);
     }
 }

@@ -113,7 +113,7 @@ $di->set('createManajerService', function () use ($di) {
 });
 
 $di->set('viewAllTugasService', function () use ($di) {
-    return new ViewAllTugasService($di->get('tugasRepository'));
+    return new ViewAllTugasService($di->get('tugasRepository'), $di->get('pegawaiRepository'));
 });
 
 $di->set('createTugasService', function () use ($di) {
