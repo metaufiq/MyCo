@@ -102,12 +102,12 @@
                                     echo ", ";
                                 }
                             } ?></td>
-                        <td><?php echo $tugas['tenggat_waktu'] ?></td>
-                        <td><?php echo $tugas['status']['status'] ?></td>
+                        <td><?php echo $tugas['tenggatWaktu'] ?></td>
+                        <td><?php echo $tugas['status']['nama'] ?></td>
 
                         <td>
-                            <button type="button" class="btn btn-primary" id="open-modal-tugas-ubah" data-toggle="modal" data-target="#modal-tugas-ubah" data-id="<?php echo $tugas['id']; ?>" data-tugas="<?php echo $tugas['tugas']; ?>" data-tenggatwaktu="<?php echo $tugas['tenggat_waktu']; ?>" data-status="<?php echo $tugas['status']['id']; ?>">Ubah Tugas</button>
-                            <button type="button" class="btn btn-danger" id="open-modal-tugas-hapus" data-toggle="modal" data-target="#modal-tugas-hapus" data-id="<?php echo $tugas['id']; ?>">Hapus Tugas</button>
+                            <button type="button" class="btn btn-primary" id="open-modal-tugas-ubah" data-toggle="modal" data-target="#modal-tugas-ubah" data-id="<?php echo $tugas['tugas']; ?>" data-tugas="<?php echo $tugas['tugas']; ?>" data-tenggatwaktu="<?php echo $tugas['tenggatWaktu']; ?>" data-status="<?php echo $tugas['status']['id']; ?>">Ubah Tugas</button>
+                            <button type="button" class="btn btn-danger" id="open-modal-tugas-hapus" data-toggle="modal" data-target="#modal-tugas-hapus" data-id="<?php echo $tugas['tugas']; ?>">Hapus Tugas</button>
                         </td>
                     </tr>
                 <?php

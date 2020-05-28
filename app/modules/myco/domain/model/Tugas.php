@@ -3,17 +3,15 @@ namespace Index\Modules\MyCo\Domain\Model;
 
 class Tugas
 {
-    private TugasId $id;
+    private $id;
     private $nama;
-    private $pegawai;
     private $tenggatWaktu;
     private $status;
 
-    public function __construct($id,$nama,$pegawai,$tenggatWaktu,$status)
+    public function __construct(TugasId $id,$nama,$tenggatWaktu,$status)
     {
         $this->id = $id;
         $this->nama = $nama;
-        $this->pegawai = $pegawai;
         $this->tenggatWaktu = $tenggatWaktu;
         $this->status = $status;
     }
@@ -28,10 +26,6 @@ class Tugas
         return $this->nama;
     }
 
-    public function getPegawai(){
-        return $this->pegawai;
-    }
-
     public function getStatus()
     {
         return $this->status;
@@ -40,5 +34,11 @@ class Tugas
     public function getTenggatWaktu()
     {
         return $this->tenggatWaktu;
+    }
+
+    public function isTelat()
+    {
+        date_default_timezone_set("Asia/Jakarta");
+        return $this->getTenggatWaktu() < date('yyyy-mm-dd h:i:s', time());
     }
 }

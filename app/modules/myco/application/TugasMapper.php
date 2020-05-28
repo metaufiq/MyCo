@@ -8,19 +8,30 @@ use Index\Modules\MyCo\Domain\Model\TingkatPegawai;
 class TugasMapper
 {
 
-    protected $allTugas = [];
-    public function __construct(array $allTugas)
+    protected $allData = [];
+    public function __construct(array $allData)
     {
-        $this->allTugas = $allTugas;
+        $this->allData = $allData;
 
     }
 
     public function get(): array
     {   
-        foreach ($this->allTugas as &$tugas) {
-            $tugas['status'] = array('id' =>  $tugas['status_id'], 'status'=>$tugas['status']);
-            unset($tugas['id_status']);    
+
+        $result = array();
+        foreach ($this->allData as $data) {   
+            $newData = array(
+                'tugas' => $data['tugas']->getNama(),
+                'pegawai' => $data['pegawai'],
+                'tenggatWaktu' => $data['tugas']->getTenggatWaktu(),
+                'status'=> array(
+                    'id'=> $data['tugas']->getStatus()->getId(),
+                    'nama' => $data['tugas']->getStatus()->getNama()
+                )
+            );
+
+            array_push($result, $newData);
         }
-        return $this->allTugas;
+        return $result;
     }
 }

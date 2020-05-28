@@ -3,6 +3,8 @@
 namespace Index\Modules\MyCo\Infrastructure\Persistence;
 
 use Index\Modules\MyCo\Domain\Model\Tugas;
+use Index\Modules\MyCo\Domain\Model\TugasId;
+use Index\Modules\MyCo\Domain\Model\TugasStatus;
 use Index\Modules\MyCo\Domain\Repository\TugasRepository;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use PDO;
@@ -37,8 +39,18 @@ class SqlTugasRepository implements TugasRepository
     {
         $statement = sprintf("SELECT t.id, t.tugas, t.tenggat_waktu, st.id as status_id, st.status FROM Tugas t INNER JOIN status_tugas st ON st.id = t.status");
 
-        return $this->db->query($statement)
+        $allTugas = $this->db->query($statement)
             ->fetchAll(PDO::FETCH_ASSOC);
+
+        $result = array();
+        foreach ($allTugas as $tugas) {
+            $tugasId = new TugasId($tugas['id']);
+            $status = new TugasStatus($tugas['status_id'], $tugas['status']);
+            $newTugas = new Tugas($tugasId, $tugas['tugas'], $tugas['tenggat_waktu'], $status);
+            array_push($result, $newTugas);
+        }
+
+        return $result;
     }
 
     public function getById(Tugas $tugas)

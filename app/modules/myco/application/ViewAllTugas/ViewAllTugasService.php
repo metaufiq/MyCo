@@ -22,13 +22,22 @@ class ViewAllTugasService{
     public function handle()
     {
         $allTugas = $this->tugasRepository->getAll();
-        
+        print_r($allTugas);
 
-        foreach ($allTugas as &$tugas) {
-            $tugasId = new TugasId($tugas['id']);
+        $result = array();
+        foreach ($allTugas as $tugas) {
+            $newData = array();
+            $tugasId = $tugas->getId();
             $pegawai = $this->pegawaiRepository->getByTugasId($tugasId);
-            $tugas['pegawai'] = $pegawai;
+
+            if ($tugas->isTelat()) {
+                $tugas->getStatus()->setTelat();
+            }
+            $newData['tugas'] = $tugas;
+            $newData['pegawai'] = $pegawai;
+
+            array_push($result, $newData);
         }
-        return new TugasMapper($allTugas);
+        return new TugasMapper($result);
     }
 }
