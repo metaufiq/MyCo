@@ -8,7 +8,8 @@ use Index\Modules\MyCo\Domain\Repository\PegawaiRepository;
 use Index\Modules\MyCo\Domain\Repository\TugasRepository;
 
 
-class ViewAllTugasService{
+class ViewAllTugasService
+{
 
     protected $tugasRepository;
     protected $pegawaiRepository;
@@ -22,14 +23,12 @@ class ViewAllTugasService{
     public function handle()
     {
         $allTugas = $this->tugasRepository->getAll();
-        print_r($allTugas);
 
         $result = array();
         foreach ($allTugas as $tugas) {
             $newData = array();
             $tugasId = $tugas->getId();
             $pegawai = $this->pegawaiRepository->getByTugasId($tugasId);
-
             if ($tugas->isTelat()) {
                 $this->tugasRepository->setTelat($tugas);
                 $tugas->getStatus()->setTelat();

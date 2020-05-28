@@ -26,6 +26,14 @@ class SqlPegawaiRepository implements PegawaiRepository
         return true;
     }
 
+    public function setTugasPegawai(Pegawai $pegawai, TugasId $tugasId)
+    {
+        $statement = sprintf("INSERT INTO Penugasan(tugas, pegawai) VALUES(:tugas,  :pegawai)");
+        $params = ['tugas' => $tugasId->getId(), 'pegawai' => $pegawai->getId()];
+        $this->db->execute($statement, $params);
+        return true;   
+    }
+
     public function getAll()
     {
         $statement = sprintf("SELECT p.id,p.nama as nama,p.alamat as alamat, p.no_hp as no_hp, tp.tingkat_nama as tingkat_nama FROM pegawai p 

@@ -7,6 +7,8 @@ interface TugasRepository{
 
     public function getAll();
 
+    public function getLatestInsertedId();
+
     public function getById(Tugas $tugas);
 
     public function delete(Tugas $tugas);

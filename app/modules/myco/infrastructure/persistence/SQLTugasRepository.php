@@ -25,14 +25,7 @@ class SqlTugasRepository implements TugasRepository
         $params = ['tugas' => $tugas->getNama(), 'tenggatWaktu' => $tugas->getTenggatWaktu(), 's' => $tugas->getStatus()];
         $this->db->execute($statement, $params);
 
-        $tugasId = $this->db->lastInsertId();
 
-        foreach ($tugas->getPegawai() as $pegawai) {
-            $statement = sprintf("INSERT INTO Penugasan(tugas, pegawai) VALUES(:tugas,  :pegawai)");
-            $params = ['tugas' => $tugasId, 'pegawai' => $pegawai];
-            $this->db->execute($statement, $params);
-        }
-        return true;
     }
 
     public function getAll()
@@ -49,6 +42,15 @@ class SqlTugasRepository implements TugasRepository
             $newTugas = new Tugas($tugasId, $tugas['tugas'], $tugas['tenggat_waktu'], $status);
             array_push($result, $newTugas);
         }
+
+        return $result;
+    }
+
+    function getLatestInsertedId() : TugasId
+    {
+        $tugasId = $this->db->lastInsertId();
+        
+        $result = new TugasId($tugasId);
 
         return $result;
     }

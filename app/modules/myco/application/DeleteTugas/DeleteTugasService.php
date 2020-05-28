@@ -3,6 +3,7 @@ namespace Index\Modules\MyCo\Application\DeleteTugas;
 
 use Index\Modules\MyCo\Application\GenericResponse;
 use Index\Modules\MyCo\Domain\Model\Tugas;
+use Index\Modules\MyCo\Domain\Model\TugasId;
 use Index\Modules\MyCo\Domain\Repository\TugasRepository;
 
 

@@ -8,7 +8,7 @@ class Tugas
     private $tenggatWaktu;
     private $status;
 
-    public function __construct(TugasId $id,$nama,$tenggatWaktu,$status)
+    public function __construct($id, $nama, $tenggatWaktu, $status)
     {
         $this->id = $id;
         $this->nama = $nama;
@@ -39,6 +39,6 @@ class Tugas
     public function isTelat()
     {
         date_default_timezone_set("Asia/Jakarta");
-        return $this->getTenggatWaktu() < date('yyyy-mm-dd h:i:s', time());
+        return  time()-strtotime($this->getTenggatWaktu()) > 0;
     }
 }
