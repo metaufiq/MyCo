@@ -15,7 +15,7 @@ class SqlTingkatPegawaiRepository implements TingkatPegawaiRepository
     {
         $this->db = $db;
     }
-    public function save(TingkatPegawai $tingkat)
+    public function create(TingkatPegawai $tingkat)
     {
         $statement = sprintf("INSERT INTO tingkat_pegawai(tingkat_nama, tingkat_jenis, tingkat_golongan, tingkat_pendidikan, tingkat_lamakerja, tingkat_gaji) VALUES(:nama,  :jenis, :golongan, :pendidikan, :lamakerja, :gaji_dasar)");
         $params = ['nama' => $tingkat->getNama(), 'jenis' => $tingkat->getJenis(), 'golongan' => $tingkat->getGolongan(), 'pendidikan' => $tingkat->getPendidikan(), 'lamakerja' => $tingkat->getLamaKerja(), 'gaji_dasar' => $tingkat->getGajiDasar()];

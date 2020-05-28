@@ -24,12 +24,12 @@ class CreateTugasService{
         try {
             
             $tugas = new Tugas(null, $request->getTugas(),  $request->getTenggatWaktu(), 1);
-            $response = $this->tugasRepository->save($tugas);
+            $response = $this->tugasRepository->create($tugas);
             
             $tugasId = $this->tugasRepository->getLatestInsertedId();
             foreach ($request->getPegawai() as $pegawaiId) {
                 $pegawai = new Pegawai($pegawaiId, null, null, null, null, null, null, null, null, null, null);
-                $this->pegawaiRepository->setTugasPegawai($pegawai, $tugasId);
+                $this->pegawaiRepository->createTugasPegawai($pegawai, $tugasId);
             }
             return new GenericResponse($response, "Tugas created successfully.");
         } catch (\Exception $exception) {

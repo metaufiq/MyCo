@@ -19,7 +19,7 @@ class CreateTingkatPegawaiService{
     {
         try {
             $tingkatPegawai = new TingkatPegawai(NULL, $request->getNama(), $request->getJenis(), $request->getGolongan(), $request->getPendidikan(), $request->getLamaKerja(), $request->getGajiDasar());
-            $response = $this->tingkatPegawaiRepository->save($tingkatPegawai);
+            $response = $this->tingkatPegawaiRepository->create($tingkatPegawai);
             
             return new GenericResponse($response, "Tingkat Pegawai baru telah berhasil ditambahkan.");
         } catch (\Exception $exception) {

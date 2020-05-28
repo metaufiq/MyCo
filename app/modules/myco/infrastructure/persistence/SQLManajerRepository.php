@@ -18,7 +18,7 @@ class SqlManajerRepository implements ManajerRepository
     }
 
 
-    public function save(Manajer $manajer)
+    public function create(Manajer $manajer)
     {
         $statement = sprintf("INSERT INTO Manajer(nama, email, `password`) VALUES(:nama,  :email, :p)");
         $params = ['nama' => $manajer->getNama(), 'email' => $manajer->getEmail(), 'p' => $manajer->getPassword()];

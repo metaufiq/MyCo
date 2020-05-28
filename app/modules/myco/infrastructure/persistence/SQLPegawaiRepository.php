@@ -17,7 +17,7 @@ class SqlPegawaiRepository implements PegawaiRepository
     {
         $this->db = $db;
     }
-    public function save(Pegawai $pegawai)
+    public function create(Pegawai $pegawai)
     {
         // return [ 'tugas' => $tugas->getNama(), 'tenggat_waktu' => $tugas->getTenggatWaktu(), 'pegawai' => $tugas->getPegawai(), 'status' => $tugas->getStatus()];
         $statement = sprintf("INSERT INTO Pegawai(nama, alamat, no_hp, t_pegawai_id) VALUES(:nama,  :alamat, :no_ho, :t_pegawai)");
@@ -26,13 +26,15 @@ class SqlPegawaiRepository implements PegawaiRepository
         return true;
     }
 
-    public function setTugasPegawai(Pegawai $pegawai, TugasId $tugasId)
+    public function createTugasPegawai(Pegawai $pegawai, TugasId $tugasId)
     {
         $statement = sprintf("INSERT INTO Penugasan(tugas, pegawai) VALUES(:tugas,  :pegawai)");
         $params = ['tugas' => $tugasId->getId(), 'pegawai' => $pegawai->getId()];
         $this->db->execute($statement, $params);
         return true;   
     }
+
+
 
     public function getAll()
     {
@@ -61,7 +63,13 @@ class SqlPegawaiRepository implements PegawaiRepository
 
         return true;
     }
-
+    public function deleteAllTugasPegawaiByTugasId(TugasId $tugasId)
+    {
+        $statement = sprintf("DELETE FROM Penugasan WHERE tugas=:tugas");
+        $params = ['tugas' => $tugasId->getId()];
+        $this->db->execute($statement, $params);
+        return true;   
+    }
     public function edit(Pegawai $pegawai)
     {
         $statement = sprintf("UPDATE Pegawai SET  nama=:nama, alamat=:alamat, no_hp=:no_hp, t_pegawai_id=:tp_id WHERE id= :id");

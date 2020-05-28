@@ -4,12 +4,15 @@ use Index\Modules\MyCo\Domain\Model\Pegawai;
 use Index\Modules\MyCo\Domain\Model\TugasId;
 
 interface PegawaiRepository{
-    public function save(Pegawai $pegawai);
+    public function create(Pegawai $pegawai);
 
-    public function setTugasPegawai(Pegawai $pegawai, TugasId $tugasId);
+    public function createTugasPegawai(Pegawai $pegawai, TugasId $tugasId);
+
     public function getAll();
 
+
     public function delete(Pegawai $pegawai);
+    public function deleteAllTugasPegawaiByTugasId(TugasId $tugasId);
 
     public function edit(Pegawai $pegawai);
 

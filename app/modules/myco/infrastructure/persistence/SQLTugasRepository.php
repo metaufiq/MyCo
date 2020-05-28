@@ -18,7 +18,7 @@ class SqlTugasRepository implements TugasRepository
     {
         $this->db = $db;
     }
-    public function save(Tugas $tugas)
+    public function create(Tugas $tugas)
     {
         // return [ 'tugas' => $tugas->getNama(), 'tenggat_waktu' => $tugas->getTenggatWaktu(), 'pegawai' => $tugas->getPegawai(), 'status' => $tugas->getStatus()];
         $statement = sprintf("INSERT INTO Tugas(tugas, tenggat_waktu, `status`) VALUES(:tugas,  :tenggatWaktu, :s)");
@@ -105,32 +105,8 @@ class SqlTugasRepository implements TugasRepository
             's' => $tugas->getStatus(), 
             'id' => $tugas->getId()->getId()
         ];
-        print_r($params);
         $this->db->execute($statement, $params);
-        // return true;
-        $statement = sprintf("SELECT pegawai FROM Penugasan WHERE tugas=:tugas");
-        $params = ['tugas' => $tugas->getId()->getId()];
-        $pegawaiFromDB = $this->db->query($statement, $params)
-            ->fetchAll(PDO::FETCH_ASSOC);
 
-        $temp = array();
-        foreach ($pegawaiFromDB as $pegawai) {
-            array_push($temp, $pegawai['pegawai']);
-        }
-
-        $intersectDelete = array_diff($temp, $tugas->getPegawai());
-        foreach ($intersectDelete as $pegawai) {
-            $statement = sprintf("DELETE FROM Penugasan WHERE tugas=:tugas AND  pegawai=:pegawai");
-            $params = ['tugas' => $tugas->getId()->getId(), 'pegawai' => $pegawai];
-            $this->db->execute($statement, $params);
-        }
-
-        $intersectInsert = array_diff($tugas->getPegawai(), $temp);
-        foreach ($intersectInsert as $pegawai) {
-            $statement = sprintf("INSERT INTO Penugasan(tugas, pegawai) VALUES(:tugas,  :pegawai)");
-            $params = ['tugas' => $tugas->getId()->getId(), 'pegawai' => $pegawai];
-            $this->db->execute($statement, $params);
-        }
 
         return true;
     }

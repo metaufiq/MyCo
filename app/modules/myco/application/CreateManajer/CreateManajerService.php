@@ -19,7 +19,7 @@ class CreateManajerService{
     {
         try {
             $manajer = new Manajer($request->getNama(), $request->getEmail(), $request->getPassword());
-            $response = $this->manajerRepository->save($manajer);
+            $response = $this->manajerRepository->create($manajer);
             
             return new GenericResponse($response, "Manajer created successfully.");
         } catch (\Exception $exception) {
