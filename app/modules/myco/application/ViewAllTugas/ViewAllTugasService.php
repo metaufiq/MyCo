@@ -31,6 +31,7 @@ class ViewAllTugasService{
             $pegawai = $this->pegawaiRepository->getByTugasId($tugasId);
 
             if ($tugas->isTelat()) {
+                $this->tugasRepository->setTelat($tugas);
                 $tugas->getStatus()->setTelat();
             }
             $newData['tugas'] = $tugas;

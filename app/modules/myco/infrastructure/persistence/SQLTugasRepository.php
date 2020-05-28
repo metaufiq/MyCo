@@ -127,4 +127,12 @@ class SqlTugasRepository implements TugasRepository
 
         return true;
     }
+
+
+    public function setTelat(Tugas $tugas)
+    {
+        $statement = sprintf("UPDATE Tugas SET  `status`=0 WHERE id= :id");
+        $params = [ 'id' => $tugas->getId()->getId()];
+        $this->db->execute($statement, $params);
+    }
 }
