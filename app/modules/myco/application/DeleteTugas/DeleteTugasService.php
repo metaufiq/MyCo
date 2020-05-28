@@ -19,7 +19,8 @@ class DeleteTugasService{
     public function handle(DeleteTugasRequest $request) : GenericResponse
     {
         try {
-            $tugas = new Tugas($request->getId(), null, null, null, null);
+            $tugasId = new TugasId($request->getId());
+            $tugas = new Tugas($tugasId, null, null, null);
             $response = $this->tugasRepository->delete($tugas);
             
             return new GenericResponse($response, "Tugas deleted successfully.");
