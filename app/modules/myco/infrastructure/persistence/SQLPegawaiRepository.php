@@ -20,7 +20,7 @@ class SqlPegawaiRepository implements PegawaiRepository
     public function create(Pegawai $pegawai)
     {
         // return [ 'tugas' => $tugas->getNama(), 'tenggat_waktu' => $tugas->getTenggatWaktu(), 'pegawai' => $tugas->getPegawai(), 'status' => $tugas->getStatus()];
-        $statement = sprintf("INSERT INTO Pegawai(nama, alamat, no_hp, t_pegawai_id) VALUES(:nama,  :alamat, :no_ho, :t_pegawai)");
+        $statement = sprintf("INSERT INTO Pegawai(nama, alamat, no_hp, t_pegawai_id) VALUES(:nama,  :alamat, :no_hp, :t_pegawai)");
         $params = ['nama' => $pegawai->getNama(), 'alamat' => $pegawai->getAlamat(), 'no_hp' => $pegawai->getNoHp(), 't_pegawai' => $pegawai->getTingkatPegawai()->getId()];
         $this->db->execute($statement, $params);
         return true;

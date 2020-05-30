@@ -70,9 +70,9 @@
             </tbody>
         </table>
 
-        <!-- <div class="row justify-content-center align-items-center">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tugas-tambah">Tambah Tugas</button>
-        </div> -->
+        <div class="row justify-content-center align-items-center">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-pegawai-tambah">Tambah Pegawai</button>
+        </div>
     </div>
     <div class="tab-pane fade" id="pills-tugas" role="tabpanel" aria-labelledby="pills-tugas-tab" style="padding-top:50px">
         <table class="table" id="tugas-tabel">
@@ -245,6 +245,42 @@
 </div>
 
 <!-- Modal -->
+
+<div class="modal fade" id="modal-pegawai-tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Pegawai</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="tambahPegawai" id="form-tambah-pegawai" method="POST">
+                    <div class="form-group" style="margin-bottom:20px">
+                        <label for="exampleInputEmail1">Nama</label>
+                        <input type="text" class="form-control" name="pegawai_nama" aria-describedby="emailHelp" placeholder="Masukan Nama">
+                    </div>
+                    <div class="form-group" style="margin-bottom:20px">
+                        <label for="exampleInputEmail1">Alamat</label>
+                        <input type="text" class="form-control" name="pegawai_alamat" aria-describedby="emailHelp" placeholder="Masukan Alamat">
+                    </div>
+                    <div class="form-group" style="margin-bottom:20px">
+                        <label for="exampleInputEmail1">No. HP</label>
+                        <input type="text" class="form-control" name="pegawai_no_hp" aria-describedby="emailHelp" placeholder="Masukan No. HP">
+                    </div>
+                    <div class="form-group" style="margin-bottom:20px">
+                        <label for="exampleInputEmail1">Tingkat Pegawai</label>
+                        <input type="text" class="form-control" name="tingkat_pegawai" aria-describedby="emailHelp" placeholder="Masukan Tingkat Pegawai">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="margin-top:50px">Tambah</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modal-tugas-tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -310,7 +346,7 @@
                         <input class="input-tenggat-waktu" id="tugas-tenggat-waktu" width="312" name="tugas_tenggat_waktu" placeholder="masukan tanggal" />
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Status Pegerjaan</label>
+                        <label for="exampleFormControlSelect1">Status Pengerjaan</label>
                         <select class="form-control" id="tugas-status" name="tugas_status">
                             <option value="1">Ditugaskan</option>
                             <option value="2">Selesai</option>
@@ -336,7 +372,7 @@
             </div>
             <div class="modal-body">
                 <form action="hapusTugas" method="post">
-                    <p>Apakah anda yakin ingin menghapus tugas Menyelesaikan Progres FP ?</p>
+                    <p>Apakah anda yakin ingin menghapus tugas ini?</p>
                     <input type="text" id="tugas-id" name="tugas_id" hidden>
                     <button type="submit" class="btn btn-primary">Iya, Saya yakin</button>
                     <button data-dismiss="modal" class="btn btn-danger">Batalkan</button>
