@@ -10,21 +10,29 @@ use Index\Modules\MyCo\Domain\Model\Absensi;
 class AbsensiMapper
 {
 
-    protected $pegawai = [];
-    public function __construct(array $absensiPegawai)
+    protected $allData = [];
+    public function __construct(array $allData)
     {
-        foreach ($absensiPegawai as $absensi) {
-            $newAbsensi = new Absensi($absensi['tanggal'], $absensi['masuk'], $absensi['selesai']);
-            $tingkatId = new TingkatPegawaiId($absensi['tingkat_id']);
-            $newPegawai = new Pegawai(new PegawaiId($absensi['pegawai_id']), $absensi['nama'], null, null, $newAbsensi, null, $tingkatId);
-            
-            array_push($this->pegawai, $newPegawai);
-        }
+        $this->allData = $allData;
 
     }
 
     public function get(): array
     {
-        return $this->pegawai;
+        $result = array();
+
+        foreach($this->allData as $data) {
+            $newData = array(
+                'id' => $data->getId(),
+                'nama' => $data->getNama(),
+                'tanggal' => $data->getAbsensi()->getTanggal(),
+                'mulai' => $data->getAbsensi()->getMulaiKerja(),
+                'selesai' => $data->getAbsensi()->getSelesaiKerja(),
+                'status' => $data->getAbsensi()->getStatus()
+            );
+            array_push($result, $newData);
+        }
+
+        return $result;
     }
 }

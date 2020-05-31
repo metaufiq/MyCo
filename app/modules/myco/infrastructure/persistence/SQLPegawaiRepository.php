@@ -52,9 +52,7 @@ class SqlPegawaiRepository implements PegawaiRepository
         foreach($allPegawai as $pegawai) {
             $pegawaiId = new PegawaiId($pegawai['id']);
             $tingkatPegawai = new TingkatPegawaiId($pegawai['tingkat_id']);
-            $absensi = new Absensi(null, null, null, null);
-            $gaji = new Gaji(null, null, null, null);
-            $newPegawai = new Pegawai($pegawaiId, $pegawai['nama'], $pegawai['alamat'], $pegawai['no_hp'], $absensi, $gaji, $tingkatPegawai);
+            $newPegawai = new Pegawai($pegawaiId, $pegawai['nama'], $pegawai['alamat'], $pegawai['no_hp'], null, null, $tingkatPegawai);
             array_push($result, $newPegawai);
         }
 
@@ -117,9 +115,20 @@ class SqlPegawaiRepository implements PegawaiRepository
     
     public function getAbsensiPegawai() 
     {
-        $statement = sprintf("SELECT a.tanggal as tanggal, a.mulai_kerja as masuk, a.selesai_kerja as selesai, p.nama as nama, p.id as pegawai_id, p.t_pegawai_id as tingkat_id FROM absensi a INNER JOIN pegawai p ON a.pegawai_id = p.id");
-        return $this->db->query($statement)
+        $statement = sprintf("SELECT a.tanggal as tanggal, a.mulai_kerja as mulai, a.selesai_kerja as selesai, a.pegawai_id as pegawai_id, p.nama as nama, p.t_pegawai_id as tingkat_id FROM absensi a INNER JOIN pegawai p ON a.pegawai_id = p.id");
+        $allAbsensi =  $this->db->query($statement)
         ->fetchAll(PDO::FETCH_ASSOC);
+
+        $result = array();
+        foreach($allAbsensi as $absensi) {
+            $pegawaiId = new PegawaiId($absensi['pegawai_id']);
+            $tingkatPegawaiId = new TingkatPegawaiId($absensi['tingkat_id']);
+            $absensiPegawai = new Absensi($absensi['tanggal'], $absensi['mulai'], $absensi['selesai']);
+            $newPegawai = new Pegawai($pegawaiId, $absensi['nama'], null, null, $absensiPegawai, null, $tingkatPegawaiId);
+            array_push($result, $newPegawai);
+        }
+
+        return $result;
     }
 
     public function editAbsensi(Pegawai $pegawai) 
