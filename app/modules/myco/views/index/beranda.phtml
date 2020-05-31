@@ -61,6 +61,10 @@
                         <td><?php echo $pegawai['alamat'] ?></td>
                         <td><?php echo $pegawai['no_hp'] ?></td>
 
+                        <td>
+                            <button type="button" class="btn btn-primary" id="open-modal-pegawai-ubah" data-toggle="modal" data-target="#modal-pegawai-ubah" data-id="<?php echo $pegawai['id']; ?>" data-nama="<?php echo $pegawai['nama']; ?>" data-tingkatpegawai="<?php echo $pegawai['tingkat_nama']; ?>" data-alamat="<?php echo $pegawai['alamat']; ?>" data-nohp="<?php echo $pegawai['no_hp']; ?>">Ubah</button>
+                            <button type="button" class="btn btn-danger" id="open-modal-pegawai-hapus" data-toggle="modal" data-target="#modal-pegawai-hapus" data-id="<?php echo $pegawai['id']; ?>">Hapus</button>
+                        </td>
                     </tr>
                 <?php
                     $i++;
