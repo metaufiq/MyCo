@@ -56,10 +56,10 @@
                 ?>
                     <tr>
                         <th scope="row"><?php echo $i ?></th>
-                        <td><?php echo $pegawai->getNama() ?></td>
-                        <td><?php echo $pegawai->getTingkatPegawai()->getNama() ?></td>
-                        <td><?php echo $pegawai->getAlamat() ?></td>
-                        <td><?php echo $pegawai->getNoHp() ?></td>
+                        <td><?php echo $pegawai['nama'] ?></td>
+                        <td><?php echo $pegawai['tingkat_nama'] ?></td>
+                        <td><?php echo $pegawai['alamat'] ?></td>
+                        <td><?php echo $pegawai['no_hp'] ?></td>
 
                     </tr>
                 <?php
@@ -224,12 +224,12 @@
                 ?>
                     <tr>
                         <th scope="row"><?php echo $i ?></th>
-                        <td><?php echo $gp->getNama() ?></td>
-                        <td><?php echo $gp->getGaji()->getBulan() ?></td>
-                        <td><?php echo $gp->getTingkatPegawai()->getGajiDasar() ?></td>
-                        <td><?php echo $gp->getGaji()->getUpahLaukPauk() ?></td>
-                        <td><?php echo $gp->getGaji()->getUpahKehadiran() ?></td>
-                        <td><?php echo $gp->getGaji()->getUpahRenumerasi() ?></td>
+                        <td><?php echo $gp['nama'] ?></td>
+                        <td><?php echo $gp['bulan'] ?></td>
+                        <td><?php echo $gp['gaji_dasar'] ?></td>
+                        <td><?php echo $gp['upah_laukpauk'] ?></td>
+                        <td><?php echo $gp['upah_hadir'] ?></td>
+                        <td><?php echo $gp['upah_renum'] ?></td>
 
                         <td>
                         </td>

@@ -146,7 +146,7 @@ $di->set('deleteTingkatPegawaiService', function () use ($di) {
 });
 
 $di->set('viewAllPegawaiService', function () use ($di) {
-    return new ViewAllPegawaiService($di->get('pegawaiRepository'));
+    return new ViewAllPegawaiService($di->get('pegawaiRepository'), $di->get('tingkatPegawaiRepository'));
 });
 
 $di->set('createPegawaiService', function () use ($di) {
@@ -162,7 +162,7 @@ $di->set('deletePegawaiService', function () use ($di) {
 });
 
 $di->set('viewGajiPegawaiService', function () use ($di) {
-    return new ViewGajiPegawaiService($di->get('pegawaiRepository'));
+    return new ViewGajiPegawaiService($di->get('pegawaiRepository'), $di->get('tingkatPegawaiRepository'));
 });
 
 $di->set('viewAbsensiPegawaiService', function () use ($di) {

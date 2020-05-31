@@ -3,27 +3,36 @@
 namespace Index\Modules\MyCo\Application;
 
 use Index\Modules\MyCo\Domain\Model\Pegawai;
+use Index\Modules\MyCo\Domain\Model\PegawaiId;
 use Index\Modules\MyCo\Domain\Model\Gaji;
 use Index\Modules\MyCo\Domain\Model\TingkatPegawai;
+use Index\Modules\MyCo\Domain\Model\TingkatPegawaiId;
 
 class GajiMapper
 {
 
-    protected $pegawai = [];
-    public function __construct(array $gajiPegawai)
+    protected $allData = [];
+    public function __construct(array $allData)
     {
-        foreach ($gajiPegawai as $gaji) {
-            $newGaji = new Gaji($gaji['bulan'],$gaji['upah_laukpauk'], $gaji['upah_renum'], $gaji['upah_hadir']);
-            $tingkatPegawai = new TingkatPegawai(null, null, null, null, null, null, $gaji['gaji_dasar']);
-            $newPegawai = new Pegawai(null, $gaji['nama'], null, null, null, $newGaji, $tingkatPegawai);
-            
-            array_push($this->pegawai, $newPegawai);
-        }
-
+        $this->allData = $allData;   
     }
 
     public function get(): array
     {
-        return $this->pegawai;
+        $result = array();
+        foreach($this->allData as $data) {
+            $newData = array(
+                'id' => $data['pegawai']->getId(),
+                'nama' => $data['pegawai']->getNama(),
+                'tingkat_id' => $data['tingkat']->getId(),
+                'bulan' => $data['pegawai']->getGaji()->getBulan(),
+                'gaji_dasar' => $data['tingkat']->getGajiDasar(),
+                'upah_laukpauk' => $data['pegawai']->getGaji()->getUpahLaukPauk(),
+                'upah_hadir' => $data['pegawai']->getGaji()->getUpahKehadiran(),
+                'upah_renum' => $data['pegawai']->getGaji()->getUpahRenumerasi()
+            );
+            array_push($result, $newData);
+        }
+        return $result;
     }
 }

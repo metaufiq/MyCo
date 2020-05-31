@@ -2,8 +2,13 @@
 
 namespace Index\Modules\MyCo\Infrastructure\Persistence;
 
+use Index\Modules\MyCo\Application\TingkatPegawaiMapper;
 use Index\Modules\MyCo\Domain\Model\Pegawai;
+use Index\Modules\MyCo\Domain\Model\Absensi;
+use Index\Modules\MyCo\Domain\Model\Gaji;
+use Index\Modules\MyCo\Domain\Model\PegawaiId;
 use Index\Modules\MyCo\Domain\Model\TugasId;
+use Index\Modules\MyCo\Domain\Model\TingkatPegawaiId;
 use Index\Modules\MyCo\Domain\Repository\PegawaiRepository;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use PDO;
@@ -38,11 +43,22 @@ class SqlPegawaiRepository implements PegawaiRepository
 
     public function getAll()
     {
-        $statement = sprintf("SELECT p.id,p.nama as nama,p.alamat as alamat, p.no_hp as no_hp, tp.tingkat_nama as tingkat_nama FROM pegawai p 
-        INNER JOIN tingkat_pegawai tp ON p.t_pegawai_id = tp.id");
+        $statement = sprintf("SELECT p.id,p.nama as nama,p.alamat as alamat, p.no_hp as no_hp, p.t_pegawai_id as tingkat_id FROM pegawai p");
 
-        return $this->db->query($statement)
+        $allPegawai = $this->db->query($statement)
             ->fetchAll(PDO::FETCH_ASSOC);
+        
+        $result = array();
+        foreach($allPegawai as $pegawai) {
+            $pegawaiId = new PegawaiId($pegawai['id']);
+            $tingkatPegawai = new TingkatPegawaiId($pegawai['tingkat_id']);
+            $absensi = new Absensi(null, null, null, null);
+            $gaji = new Gaji(null, null, null, null);
+            $newPegawai = new Pegawai($pegawaiId, $pegawai['nama'], $pegawai['alamat'], $pegawai['no_hp'], $absensi, $gaji, $tingkatPegawai);
+            array_push($result, $newPegawai);
+        }
+
+        return $result;
     }
 
     public function getByTugasId(TugasId $tugasId)
@@ -82,16 +98,26 @@ class SqlPegawaiRepository implements PegawaiRepository
     public function getGajiPegawai() 
     {
         $statement = sprintf("SELECT g.bulan as bulan, g.upah_laukpauk as upah_laukpauk, g.upah_renumerasi as upah_renum,
-        g.upah_kehadiran as upah_hadir, p.nama as nama, tp.tingkat_gaji as gaji_dasar FROM gaji g 
-        INNER JOIN pegawai p ON g.pegawai_id = p.id
-        INNER JOIN tingkat_pegawai tp ON tp.id = p.t_pegawai_id");
-        return $this->db->query($statement)
+        g.upah_kehadiran as upah_hadir, g.pegawai_id as pegawai_id, p.t_pegawai_id as tingkat_id, p.nama as nama FROM gaji g INNER JOIN pegawai p ON g.pegawai_id = p.id");
+        $allGaji =  $this->db->query($statement)
         ->fetchAll(PDO::FETCH_ASSOC);
+
+        $result = array();
+        foreach($allGaji as $gaji) {
+            $pegawaiId = new PegawaiId($gaji['pegawai_id']);
+            $tingkatPegawaiId = new TingkatPegawaiId($gaji['tingkat_id']);
+            $absensi = new Absensi(null, null, null, null);
+            $gajiPegawai = new Gaji($gaji['bulan'], $gaji['upah_laukpauk'], $gaji['upah_renum'], $gaji['upah_hadir']);
+            $newPegawai = new Pegawai($pegawaiId, $gaji['nama'], null, null, $absensi, $gajiPegawai, $tingkatPegawaiId);
+            array_push($result, $newPegawai);
+        }
+
+        return $result;
     }
     
     public function getAbsensiPegawai() 
     {
-        $statement = sprintf("SELECT a.tanggal as tanggal, a.mulai_kerja as masuk, a.selesai_kerja as selesai, p.nama as nama, p.id as pegawai_id FROM absensi a INNER JOIN pegawai p ON a.pegawai_id = p.id");
+        $statement = sprintf("SELECT a.tanggal as tanggal, a.mulai_kerja as masuk, a.selesai_kerja as selesai, p.nama as nama, p.id as pegawai_id, p.t_pegawai_id as tingkat_id FROM absensi a INNER JOIN pegawai p ON a.pegawai_id = p.id");
         return $this->db->query($statement)
         ->fetchAll(PDO::FETCH_ASSOC);
     }

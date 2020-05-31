@@ -11,7 +11,7 @@ class Pegawai {
     private $gaji;
     private $tingkat_pegawai;
 
-    public function __construct($id, $nama, $alamat, $no_hp, $absensi, $gaji, $tingkat_pegawai)
+    public function __construct(PegawaiId $id, $nama, $alamat, $no_hp, $absensi, $gaji, TingkatPegawaiId $tingkat_pegawai)
     {
         $this->id = $id;
         $this->nama = $nama;
@@ -23,7 +23,7 @@ class Pegawai {
     }
 
     public function getId(){
-        return $this->id;
+        return $this->id->getId();
     }
 
     public function getNama(){
@@ -46,7 +46,7 @@ class Pegawai {
         return $this->absensi;
     }
 
-    public function getTingkatPegawai(){
+    public function getTingkatPegawaiId(){
         return $this->tingkat_pegawai;
     }
 

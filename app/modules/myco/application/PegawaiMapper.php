@@ -8,21 +8,27 @@ use Index\Modules\MyCo\Domain\Model\TingkatPegawai;
 class PegawaiMapper
 {
 
-    protected $pegawai = [];
-    public function __construct(array $allPegawai)
+    protected $allData = [];
+    public function __construct(array $allData)
     {
-        foreach ($allPegawai as $pegawai) {
-            
-            $tingkatPegawai = new TingkatPegawai(null, $pegawai['tingkat_nama'],null,null,null,null,null);
-            $newPegawai = new Pegawai($pegawai['id'], $pegawai['nama'], $pegawai['alamat'], $pegawai['no_hp'], null, null, $tingkatPegawai);
-            
-            array_push($this->pegawai, $newPegawai);
-        }
-
+        $this->allData = $allData;
     }
 
     public function get(): array
     {
-        return $this->pegawai;
+        $result = array();
+        foreach($this->allData as $data) {
+            $newData = array(
+                'id' => $data['pegawai']->getId(),
+                'nama' => $data['pegawai']->getNama(),
+                'alamat' => $data['pegawai']->getAlamat(),
+                'no_hp' => $data['pegawai']->getNoHp(),
+                'tingkat_id' => $data['tingkat']->getId(),
+                'tingkat_nama' => $data['tingkat']->getNama()
+            );
+            array_push($result, $newData);
+        }
+
+        return $result;
     }
 }

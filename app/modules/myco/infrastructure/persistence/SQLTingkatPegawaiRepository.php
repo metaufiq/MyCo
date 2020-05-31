@@ -3,6 +3,7 @@
 namespace Index\Modules\MyCo\Infrastructure\Persistence;
 
 use Index\Modules\MyCo\Domain\Model\TingkatPegawai;
+use Index\Modules\MyCo\Domain\Model\TingkatPegawaiId;
 use Index\Modules\MyCo\Domain\Repository\TingkatPegawaiRepository;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use PDO;
@@ -33,18 +34,32 @@ class SqlTingkatPegawaiRepository implements TingkatPegawaiRepository
             ->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getById(TingkatPegawaiId $tingkatId)
+    {
+        $statement = sprintf("SELECT * FROM tingkat_pegawai WHERE id= :id");
+        $params = ['id' => $tingkatId->getId()];
+
+        $tingkat = $this->db->query($statement, $params)
+            ->fetch(PDO::FETCH_ASSOC);
+        
+        $tingkatId = new TingkatPegawaiId($tingkat['id']);
+        $newTingkat = new TingkatPegawai($tingkatId, $tingkat['tingkat_nama'], $tingkat['tingkat_jenis'], $tingkat['tingkat_golongan'], $tingkat['tingkat_pendidikan'], $tingkat['tingkat_lamakerja'], $tingkat['tingkat_gaji']);
+        return $newTingkat;
+
+    }
+
     public function delete(TingkatPegawai $tingkat)
     {
-        $statement = sprintf("SELECT id FROM pegawai WHERE t_pegawai_id= :tp_id");
-        $params = ['tp_id' => $tingkat->getId()];
-        $pegawaiTanpaTingkat = $this->db->query($statement, $params)
-            ->fetchAll(PDO::FETCH_ASSOC);
+        // $statement = sprintf("SELECT id FROM pegawai WHERE t_pegawai_id= :tp_id");
+        // $params = ['tp_id' => $tingkat->getId()];
+        // $pegawaiTanpaTingkat = $this->db->query($statement, $params)
+        //     ->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($pegawaiTanpaTingkat as $pegawai) {
-            $statement = sprintf("UPDATE pegawai SET t_pegawai_id= NULL WHERE id= :id");
-            $params = ['id' => $pegawai['id']];
-            $this->db->execute($statement, $params);
-        }
+        // foreach ($pegawaiTanpaTingkat as $pegawai) {
+        //     $statement = sprintf("UPDATE pegawai SET t_pegawai_id= NULL WHERE id= :id");
+        //     $params = ['id' => $pegawai['id']];
+        //     $this->db->execute($statement, $params);
+        // }
 
         $statement = sprintf("DELETE FROM tingkat_pegawai WHERE id= :id");
         $params = ['id' => $tingkat->getId()];

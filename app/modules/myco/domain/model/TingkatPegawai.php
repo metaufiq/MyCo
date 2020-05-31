@@ -11,7 +11,7 @@ class TingkatPegawai
     private $lamakerja;
     private $gaji_dasar;
 
-    public function __construct($id,$nama,$jenis,$golongan,$pendidikan,$lamakerja,$gaji_dasar)
+    public function __construct(TingkatPegawaiId $id,$nama,$jenis,$golongan,$pendidikan,$lamakerja,$gaji_dasar)
     {
         $this->id = $id;
         $this->nama = $nama;
@@ -24,12 +24,17 @@ class TingkatPegawai
 
     public function getId()
     {
-        return $this->id;
+        return $this->id->getId();
     }
 
     public function getNama()
     {
         return $this->nama;
+    }
+
+    public function pegawaiKosong()
+    {
+        $this->id = new TingkatPegawaiId(0);
     }
 
     public function getJenis(){
