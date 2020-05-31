@@ -142,7 +142,7 @@ $di->set('editTingkatPegawaiService', function() use ($di) {
 });
 
 $di->set('deleteTingkatPegawaiService', function () use ($di) {
-    return new DeleteTingkatPegawaiService($di->get('tingkatPegawaiRepository'));
+    return new DeleteTingkatPegawaiService($di->get('tingkatPegawaiRepository'), $di->get('pegawaiRepository'));
 });
 
 $di->set('viewAllPegawaiService', function () use ($di) {

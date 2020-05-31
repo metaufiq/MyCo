@@ -26,10 +26,10 @@ class GajiMapper
                 'nama' => $data['pegawai']->getNama(),
                 'tingkat_id' => $data['tingkat']->getId(),
                 'bulan' => $data['pegawai']->getGaji()->getBulan(),
-                'gaji_dasar' => $data['tingkat']->getGajiDasar(),
-                'upah_laukpauk' => $data['pegawai']->getGaji()->getUpahLaukPauk(),
-                'upah_hadir' => $data['pegawai']->getGaji()->getUpahKehadiran(),
-                'upah_renum' => $data['pegawai']->getGaji()->getUpahRenumerasi()
+                'gaji_dasar' => "Rp. " . $data['tingkat']->getGajiDasar() . ".00",
+                'upah_laukpauk' => "Rp. " . $data['pegawai']->getGaji()->getUpahLaukPauk() . ".00",
+                'upah_hadir' => "Rp. " . $data['pegawai']->getGaji()->getUpahKehadiran() . ".00",
+                'upah_renum' => "Rp. " . $data['pegawai']->getGaji()->getUpahRenumerasi() . ".00"
             );
             array_push($result, $newData);
         }

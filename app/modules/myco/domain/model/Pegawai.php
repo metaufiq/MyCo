@@ -50,4 +50,10 @@ class Pegawai {
         return $this->tingkat_pegawai;
     }
 
+    public function pegawaiKosong()
+    {
+        $newId = new TingkatPegawaiId(0);
+        $this->tingkat_pegawai = $newId;
+    }
+
 }

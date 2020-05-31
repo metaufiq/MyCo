@@ -60,10 +60,8 @@ class SqlTingkatPegawaiRepository implements TingkatPegawaiRepository
         $tingkat = $this->db->query($statement, $params)
             ->fetch(PDO::FETCH_ASSOC);
         
-        $tingkatId = new TingkatPegawaiId($tingkat['id']);
         $newTingkat = new TingkatPegawai($tingkatId, $tingkat['tingkat_nama'], $tingkat['tingkat_jenis'], $tingkat['tingkat_golongan'], $tingkat['tingkat_pendidikan'], $tingkat['tingkat_lamakerja'], $tingkat['tingkat_gaji']);
         return $newTingkat;
-
     }
 
     public function delete(TingkatPegawaiId $id)

@@ -20,13 +20,13 @@ class Gaji {
         return $this->bulan;
     }
     public function getUpahLaukPauk(){
-        return $this->upah_laukpauk;
+        return number_format($this->upah_laukpauk);
     }
     public function getUpahRenumerasi(){
-        return $this->upah_renumerasi;
+        return number_format($this->upah_renumerasi);
     }
     public function getUpahKehadiran(){
-        return $this->upah_kehadiran;
+        return number_format($this->upah_kehadiran);
     }
 
 }

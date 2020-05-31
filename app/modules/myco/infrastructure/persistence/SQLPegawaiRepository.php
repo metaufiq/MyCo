@@ -2,7 +2,6 @@
 
 namespace Index\Modules\MyCo\Infrastructure\Persistence;
 
-use Index\Modules\MyCo\Application\TingkatPegawaiMapper;
 use Index\Modules\MyCo\Domain\Model\Pegawai;
 use Index\Modules\MyCo\Domain\Model\Absensi;
 use Index\Modules\MyCo\Domain\Model\Gaji;
@@ -59,6 +58,54 @@ class SqlPegawaiRepository implements PegawaiRepository
         return $result;
     }
 
+    public function getById(PegawaiId $pegawaiId)
+    {
+        $statement = sprintf("SELECT * FROM pegawai WHERE id= :id");
+        $params = ['id' => $pegawaiId->getId()];
+
+        $pegawai = $this->db->query($statement, $params)
+            ->fetch(PDO::FETCH_ASSOC);
+        
+        $pegawaiId = new PegawaiId($pegawai['id']);
+        $tingkatId = new TingkatPegawaiId($pegawai['t_pegawai_id']);
+        $newPegawai = new Pegawai($pegawaiId, $pegawai['nama'], $pegawai['alamat'], $pegawai['no_hp'], null, null, $tingkatId);
+        return $newPegawai;
+
+    }
+
+    public function getByTingkatId(TingkatPegawaiId $tingkatId)
+    {
+        $statement = sprintf("SELECT * FROM pegawai WHERE t_pegawai_id= :id");
+        $params = ['id' => $tingkatId->getId()];
+
+        $allPegawai = $this->db->query($statement, $params)
+            ->fetchAll(PDO::FETCH_ASSOC);
+        
+        $result = array();
+        foreach($allPegawai as $pegawai) {
+            $pegawaiId = new PegawaiId($pegawai['id']);
+            $newPegawai = new Pegawai($pegawaiId, $pegawai['nama'], $pegawai['alamat'], $pegawai['no_hp'], null, null, $tingkatId);
+            array_push($result, $newPegawai);
+        }
+        return $result;
+    }
+
+    public function getAbsensiById(PegawaiId $pegawaiId)
+    {
+        $statement = sprintf("SELECT p.id as id, p.t_pegawai_id as tingkat_id, a.tanggal as tanggal, a.mulai_kerja as mulai, a.selesai_kerja as selesai FROM pegawai p INNER JOIN absensi a ON p.id = a.pegawai_id WHERE p.id= :id");
+        $params = ['id' => $pegawaiId->getId()];
+
+        $pegawai = $this->db->query($statement, $params)
+            ->fetch(PDO::FETCH_ASSOC);
+        
+        $pegawaiId = new PegawaiId($pegawai['id']);
+        $tingkatId = new TingkatPegawaiId($pegawai['t_pegawai_id']);
+        $absensi = new Absensi($pegawai['tanggal'], $pegawai['mulai'], $pegawai['selesai']);
+        $newPegawai = new Pegawai($pegawaiId, $pegawai['nama'], $pegawai['alamat'], $pegawai['no_hp'], $absensi, null, $tingkatId);
+        return $newPegawai;
+
+    }
+
     public function getByTugasId(TugasId $tugasId)
     {
         $statement = sprintf("SELECT p.nama, p.alamat, p.no_hp, t_pegawai_id FROM Penugasan pgsn 
@@ -87,7 +134,7 @@ class SqlPegawaiRepository implements PegawaiRepository
     public function edit(Pegawai $pegawai)
     {
         $statement = sprintf("UPDATE Pegawai SET  nama=:nama, alamat=:alamat, no_hp=:no_hp, t_pegawai_id=:tp_id WHERE id= :id");
-        $params = ['nama' => $pegawai->getNama(), 'alamat' => $pegawai->getAlamat(), 'no_hp' => $pegawai->getNoHp(), 'tp_id' => $pegawai->getTingkatPegawai()->getId()];
+        $params = ['nama' => $pegawai->getNama(), 'alamat' => $pegawai->getAlamat(), 'no_hp' => $pegawai->getNoHp(), 'tp_id' => $pegawai->getTingkatPegawaiId()->getId()];
         $this->db->execute($statement, $params);
 
         return true;

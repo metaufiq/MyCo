@@ -32,11 +32,6 @@ class TingkatPegawai
         return $this->nama;
     }
 
-    public function pegawaiKosong()
-    {
-        $this->id = new TingkatPegawaiId(0);
-    }
-
     public function getJenis(){
         return $this->jenis;
     }
@@ -58,6 +53,6 @@ class TingkatPegawai
 
     public function getGajiDasar()
     {
-        return $this->gaji_dasar;
+        return number_format($this->gaji_dasar);
     }
 }

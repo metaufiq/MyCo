@@ -26,7 +26,7 @@ class TingkatPegawaiMapper
                 'golongan' => $data->getGolongan(),
                 'pendidikan' => $data->getPendidikan(),
                 'lamakerja' => $data->getLamaKerja(),
-                'gaji_dasar' => $data->getGajiDasar()
+                'gaji_dasar' => "Rp. " . $data->getGajiDasar() . ".00"
             );
             array_push($result, $newData);
         }
