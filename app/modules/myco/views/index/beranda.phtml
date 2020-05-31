@@ -143,16 +143,16 @@
                 ?>
                     <tr>
                         <th scope="row"><?php echo $i ?></th>
-                        <td><?php echo $tingkat->getNama() ?></td>
-                        <td><?php echo $tingkat->getJenis() ?></td>
-                        <td><?php echo $tingkat->getGolongan() ?></td>
-                        <td><?php echo $tingkat->getPendidikan() ?></td>
-                        <td><?php echo $tingkat->getLamaKerja() ?></td>
-                        <td><?php echo "Rp. " . strval($tingkat->getGajiDasar()) . ".00" ?></td>
+                        <td><?php echo $tingkat['nama'] ?></td>
+                        <td><?php echo $tingkat['jenis'] ?></td>
+                        <td><?php echo $tingkat['golongan'] ?></td>
+                        <td><?php echo $tingkat['pendidikan'] ?></td>
+                        <td><?php echo $tingkat['lamakerja'] ?></td>
+                        <td><?php echo $tingkat['gaji_dasar'] ?></td>
 
                         <td>
-                            <button type="button" class="btn btn-primary" id="open-modal-tingkat-ubah" data-toggle="modal" data-target="#modal-tingkat-ubah" data-idtingkat="<?php echo $tingkat->getId(); ?>" data-namatingkat="<?php echo $tingkat->getNama(); ?>" data-jenistingkat="<?php echo $tingkat->getJenis(); ?>" data-golongantingkat="<?php echo $tingkat->getGolongan(); ?>" data-pendidikantingkat="<?php echo $tingkat->getPendidikan(); ?>" data-lamakerjatingkat="<?php echo $tingkat->getLamaKerja(); ?>" data-gajitingkat="<?php echo $tingkat->getGajiDasar(); ?>"> Ubah</button>
-                            <button type="button" class="btn btn-danger" id="open-modal-tingkat-hapus" data-toggle="modal" data-target="#modal-tingkat-hapus" data-idtingkat="<?php echo $tingkat->getId(); ?>">Hapus</button>
+                            <button type="button" class="btn btn-primary" id="open-modal-tingkat-ubah" data-toggle="modal" data-target="#modal-tingkat-ubah" data-idtingkat="<?php echo $tingkat['id']; ?>" data-namatingkat="<?php echo $tingkat['nama']; ?>" data-jenistingkat="<?php echo $tingkat['jenis']; ?>" data-golongantingkat="<?php echo $tingkat['golongan']; ?>" data-pendidikantingkat="<?php echo $tingkat['pendidikan']; ?>" data-lamakerjatingkat="<?php echo $tingkat['lamakerja']; ?>" data-gajitingkat="<?php echo $tingkat['gaji_dasar']; ?>"> Ubah</button>
+                            <button type="button" class="btn btn-danger" id="open-modal-tingkat-hapus" data-toggle="modal" data-target="#modal-tingkat-hapus" data-idtingkat="<?php echo $tingkat['id']; ?>">Hapus</button>
                         </td>
                     </tr>
                 <?php
@@ -395,6 +395,7 @@
             <div class="modal-body">
                 <form action="tambahTingkatPegawai" id="form-tambah-tingkat" method="POST">
                     <div class="form-group" style="margin-bottom:20px">
+                        
                         <label for="exampleInputEmail1">Tingkat Pegawai</label>
                         <input type="text" class="form-control" name="tingkat_nama" aria-describedby="emailHelp" placeholder="Masukan Jenis Tingkat Pegawai">
                     </div>

@@ -2,7 +2,7 @@
 namespace Index\Modules\MyCo\Application\DeleteTingkatPegawai;
 
 use Index\Modules\MyCo\Application\GenericResponse;
-use Index\Modules\MyCo\Domain\Model\TingkatPegawai;
+use Index\Modules\MyCo\Domain\Model\TingkatPegawaiId;
 use Index\Modules\MyCo\Domain\Repository\TingkatPegawaiRepository;
 
 
@@ -18,8 +18,8 @@ class DeleteTingkatPegawaiService{
     public function handle(DeleteTingkatPegawaiRequest $request) : GenericResponse
     {
         try {
-            $tingkatPegawai = new TingkatPegawai($request->getId(), null, null, null, null, null, null, null);
-            $response = $this->tingkatPegawaiRepository->delete($tingkatPegawai);
+            $tingkatId = new TingkatPegawaiId($request->getId());
+            $response = $this->tingkatPegawaiRepository->delete($tingkatId);
             
             return new GenericResponse($response, "Tingkat Pegawai deleted successfully.");
         } catch (\Exception $exception) {

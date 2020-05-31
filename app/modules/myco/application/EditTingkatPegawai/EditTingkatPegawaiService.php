@@ -3,6 +3,7 @@ namespace Index\Modules\MyCo\Application\EditTingkatPegawai;
 
 use Index\Modules\MyCo\Application\GenericResponse;
 use Index\Modules\MyCo\Domain\Model\TingkatPegawai;
+use Index\Modules\MyCo\Domain\Model\TingkatPegawaiId;
 use Index\Modules\MyCo\Domain\Repository\TingkatPegawaiRepository;
 
 
@@ -18,7 +19,8 @@ class EditTingkatPegawaiService{
     public function handle(EditTingkatPegawaiRequest $request) : GenericResponse
     {
         try {
-            $tingkatPegawai = new TingkatPegawai($request->getId(), $request->getNama(), $request->getJenis(), $request->getGolongan(), $request->getPendidikan(), $request->getLamaKerja(), $request->getGajiDasar());
+            $tingkatId = new TingkatPegawaiId($request->getId());
+            $tingkatPegawai = new TingkatPegawai($tingkatId, $request->getNama(), $request->getJenis(), $request->getGolongan(), $request->getPendidikan(), $request->getLamaKerja(), $request->getGajiDasar());
             $response = $this->tingkatPegawaiRepository->edit($tingkatPegawai);
             
             return new GenericResponse($response, "Tingkat Pegawai edited successfully.");

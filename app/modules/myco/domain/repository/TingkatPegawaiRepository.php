@@ -9,7 +9,10 @@ interface TingkatPegawaiRepository{
 
     public function getById(TingkatPegawaiId $id);
 
-    public function delete(TingkatPegawai $tingkatPegawai);
+    public function delete(TingkatPegawaiId $tingkatPegawaiId);
 
     public function edit(TingkatPegawai $tingkatPegawai);
+
+    public function getLatestInsertedId();
+
 }

@@ -176,7 +176,6 @@ class IndexController extends ControllerBase
     public function tambahTingkatPegawaiAction()
     {
         $request = $this->request->get();
-        
         $nama = $request["tingkat_nama"];
         $jenis = $request["tingkat_jenis"];
         $golongan = $request["tingkat_golongan"];

@@ -26,12 +26,30 @@ class SqlTingkatPegawaiRepository implements TingkatPegawaiRepository
         return true;
     }
 
+    function getLatestInsertedId() : TingkatPegawaiId
+    {
+        $tingkatId = $this->db->lastInsertId();
+        
+        $result = new TingkatPegawaiId($tingkatId+1);
+
+        return $result;
+    }
+
     public function getAll()
     {
         $statement = sprintf("SELECT id, tingkat_nama, tingkat_jenis, tingkat_golongan, tingkat_pendidikan, tingkat_lamakerja, tingkat_gaji FROM tingkat_pegawai");
 
-        return $this->db->query($statement)
+        $allTingkat = $this->db->query($statement)
             ->fetchAll(PDO::FETCH_ASSOC);
+
+        $result = array();
+        foreach($allTingkat as $tingkat) {
+            $tingkatPegawaiId = new TingkatPegawaiId($tingkat['id']);
+            $newTingkat = new TingkatPegawai($tingkatPegawaiId, $tingkat['tingkat_nama'], $tingkat['tingkat_jenis'], $tingkat['tingkat_golongan'], $tingkat['tingkat_pendidikan'], $tingkat['tingkat_lamakerja'], $tingkat['tingkat_gaji']);
+            array_push($result, $newTingkat);
+        }
+
+        return $result;
     }
 
     public function getById(TingkatPegawaiId $tingkatId)
@@ -48,21 +66,10 @@ class SqlTingkatPegawaiRepository implements TingkatPegawaiRepository
 
     }
 
-    public function delete(TingkatPegawai $tingkat)
+    public function delete(TingkatPegawaiId $id)
     {
-        // $statement = sprintf("SELECT id FROM pegawai WHERE t_pegawai_id= :tp_id");
-        // $params = ['tp_id' => $tingkat->getId()];
-        // $pegawaiTanpaTingkat = $this->db->query($statement, $params)
-        //     ->fetchAll(PDO::FETCH_ASSOC);
-
-        // foreach ($pegawaiTanpaTingkat as $pegawai) {
-        //     $statement = sprintf("UPDATE pegawai SET t_pegawai_id= NULL WHERE id= :id");
-        //     $params = ['id' => $pegawai['id']];
-        //     $this->db->execute($statement, $params);
-        // }
-
         $statement = sprintf("DELETE FROM tingkat_pegawai WHERE id= :id");
-        $params = ['id' => $tingkat->getId()];
+        $params = ['id' => $id->getId()];
         $this->db->execute($statement, $params);
 
         return true;
